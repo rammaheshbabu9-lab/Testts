@@ -1,647 +1,622 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-  <title>TEVORA | A Better Tea Break</title>
-
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      min-height: 100vh;
-      background: #f5f5f5;
-    }
-
-
-    /* =========================
-       POPUP BACKGROUND
-    ========================== */
-    .poster-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-
-      padding: 20px;
-
-
-      background: rgba(0, 0, 0, 0.78);
-      backdrop-filter: blur(7px);
-
-
-      animation: fadeIn 0.5s ease;
-    }
-
-
-    /* =========================
-       POSTER
-    ========================== */
-    .poster {
-      position: relative;
-
-
-      width: min(440px, 94vw);
-      max-height: 94vh;
-
-
-      overflow: hidden;
-      overflow-y: auto;
-
-
-      border: 2px solid #d8ad55;
-      border-radius: 25px;
-
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(9, 25, 19, 0.96),
-          rgba(13, 35, 25, 0.98)
-        );
-
-
-      box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.65);
-
-
-      animation: posterIn 0.6s cubic-bezier(.17,.67,.3,1.2);
-    }
-
-
-    /* =========================
-       CLOSE BUTTON
-    ========================== */
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-
-
-      width: 42px;
-      height: 42px;
-
-
-      border: 2px solid #ffffff;
-      border-radius: 50%;
-
-
-      background: rgba(0, 0, 0, 0.45);
-      color: white;
-
-
-      font-size: 28px;
-      line-height: 35px;
-
-
-      cursor: pointer;
-      z-index: 10;
-
-
-      transition: 0.3s ease;
-    }
-
-
-    .close-btn:hover {
-      transform: rotate(90deg) scale(1.08);
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-
-    /* =========================
-       BRAND
-    ========================== */
-    .brand {
-      text-align: center;
-      padding: 35px 20px 20px;
-      color: #f2c96d;
-    }
-
-
-    .brand-icon {
-      font-size: 38px;
-      margin-bottom: 5px;
-    }
-
-
-    .brand h1 {
-      font-family: Georgia, serif;
-      font-size: 48px;
-      letter-spacing: 5px;
-      font-weight: 500;
-    }
-
-
-    .brand p {
-      margin-top: 5px;
-      font-size: 13px;
-      letter-spacing: 3px;
-    }
-
-
-    .line {
-      width: 80%;
-      height: 1px;
-      margin: 15px auto 0;
-
-
-      background: linear-gradient(
-        90deg,
-        transparent,
-        #d8ad55,
-        transparent
-      );
-    }
-
-
-    /* =========================
-       HEADING
-    ========================== */
-    .headline {
-      text-align: center;
-      padding: 5px 20px 20px;
-      color: white;
-    }
-
-
-    .headline h2 {
-      font-family: Georgia, serif;
-      font-size: 25px;
-      margin-bottom: 12px;
-    }
-
-
-    .headline h2 span {
-      color: #e8bd63;
-    }
-
-
-    .headline p {
-      color: #e0e0e0;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-
-    /* =========================
-       PRODUCT IMAGE
-    ========================== */
-    .product-image {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-      max-height: 280px;
-    }
-
-
-    /* =========================
-       FEATURES
-    ========================== */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-
-
-      margin: 0 15px;
-      border: 1px solid #d8ad55;
-      border-radius: 15px;
-
-
-      overflow: hidden;
-
-
-      background: rgba(0, 0, 0, 0.25);
-    }
-
-
-    .feature {
-      text-align: center;
-      padding: 15px 5px;
-      color: white;
-      border-right: 1px solid rgba(216, 173, 85, 0.5);
-    }
-
-
-    .feature:last-child {
-      border-right: none;
-    }
-
-
-    .feature-icon {
-      font-size: 23px;
-      margin-bottom: 7px;
-      color: #f2c96d;
-    }
-
-
-    .feature span {
-      display: block;
-      font-size: 9px;
-      line-height: 1.3;
-      letter-spacing: 0.5px;
-    }
-
-
-    /* =========================
-       CTA
-    ========================== */
-    .cta {
-      text-align: center;
-      padding: 25px 20px 30px;
-      color: white;
-    }
-
-
-    .cta h3 {
-      font-family: Georgia, serif;
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-
-    .cta h3 span {
-      color: #e8bd63;
-    }
-
-
-    .cta p {
-      color: #ddd;
-      font-size: 13px;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
-
-
-    /* =========================
-       CLICK NOW BUTTON
-    ========================== */
-    .click-now {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-
-
-      min-width: 220px;
-      padding: 15px 28px;
-
-
-      border-radius: 50px;
-
-
-      background: linear-gradient(
-        135deg,
-        #f8d477,
-        #dca942
-      );
-
-
-      color: #111;
-
-
-      text-decoration: none;
-
-
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 2px;
-
-
-      box-shadow:
-        0 8px 30px rgba(229, 177, 68, 0.4);
-
-
-      transition: all 0.3s ease;
-    }
-
-
-    .click-now .arrow {
-      font-size: 25px;
-      transition: 0.3s ease;
-    }
-
-
-    .click-now:hover {
-      transform: translateY(-4px) scale(1.03);
-
-
-      box-shadow:
-        0 12px 40px rgba(229, 177, 68, 0.65);
-    }
-
-
-    .click-now:hover .arrow {
-      transform: translateX(7px);
-    }
-
-
-    /* =========================
-       FOOTER
-    ========================== */
-    .footer {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-
-
-      padding: 0 15px 20px;
-
-
-      color: #d8ad55;
-      font-size: 9px;
-      letter-spacing: 0.7px;
-      text-align: center;
-    }
-
-
-    /* =========================
-       ANIMATIONS
-    ========================== */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-
-      to {
-        opacity: 1;
-      }
-    }
-
-
-    @keyframes posterIn {
-      from {
-        opacity: 0;
-        transform: scale(0.75) translateY(30px);
-      }
-
-
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-
-    /* =========================
-       MOBILE
-    ========================== */
-    @media (max-width: 480px) {
-
-
-      .poster {
-        width: 95vw;
-        border-radius: 20px;
-      }
-
-
-      .brand {
-        padding-top: 30px;
-      }
-
-
-      .brand h1 {
-        font-size: 38px;
-      }
-
-
-      .headline h2 {
-        font-size: 21px;
-      }
-
-
-      .product-image {
-        max-height: 220px;
-      }
-
-
-      .features {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-
-      .feature:nth-child(2) {
-        border-right: none;
-      }
-
-
-      .feature:nth-child(1),
-      .feature:nth-child(2) {
-        border-bottom: 1px solid rgba(216, 173, 85, 0.5);
-      }
-
-
-      .click-now {
-        width: 90%;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TEVORA - Make Better Breaks</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fff8ec;
+    color:#35180f;
+    overflow-x:hidden;
+}
+
+/* TOP NAVIGATION */
+.nav{
+    width:100%;
+    padding:20px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:20;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:900;
+    letter-spacing:4px;
+    color:#4b2113;
+}
+
+.logo span{
+    color:#d97722;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#4b2113;
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* MAIN */
+.hero{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    padding:100px 7% 60px;
+    background:
+        radial-gradient(circle at 85% 30%,#ffd98c 0%,transparent 28%),
+        radial-gradient(circle at 10% 90%,#ffe6bd 0%,transparent 30%),
+        #fff8ec;
+}
+
+/* LEFT */
+.hero-left{
+    width:55%;
+    position:relative;
+    z-index:5;
+}
+
+.badge{
+    display:inline-block;
+    background:#fff;
+    border:1px solid #f0c98d;
+    padding:10px 18px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:bold;
+    color:#70402b;
+    margin-bottom:22px;
+    box-shadow:0 7px 20px rgba(80,40,10,.07);
+}
+
+h1{
+    font-size:clamp(60px,9vw,115px);
+    line-height:.85;
+    letter-spacing:-5px;
+    color:#4b2113;
+    margin-bottom:22px;
+}
+
+h1 span{
+    color:#e27620;
+}
+
+.tagline{
+    font-size:clamp(25px,4vw,43px);
+    font-weight:900;
+    color:#2d130b;
+    margin-bottom:18px;
+}
+
+.description{
+    max-width:570px;
+    font-size:16px;
+    line-height:1.7;
+    color:#79594a;
+    margin-bottom:25px;
+}
+
+.delivery{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    background:#fff;
+    padding:11px 18px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:25px;
+    box-shadow:0 8px 25px rgba(60,30,10,.08);
+}
+
+.green-dot{
+    width:9px;
+    height:9px;
+    background:#22a865;
+    border-radius:50%;
+    box-shadow:0 0 10px #22a865;
+}
+
+/* ORDER BUTTON */
+.order-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+    padding:18px 38px;
+    min-width:220px;
+    border-radius:50px;
+    background:linear-gradient(135deg,#e66e1e,#f5b52e);
+    color:#fff;
+    text-decoration:none;
+    font-size:16px;
+    font-weight:900;
+    letter-spacing:1px;
+    box-shadow:0 15px 35px rgba(218,103,25,.30);
+    transition:.3s;
+}
+
+.order-btn:hover{
+    transform:translateY(-5px) scale(1.03);
+    box-shadow:0 20px 45px rgba(218,103,25,.40);
+}
+
+.arrow{
+    font-size:22px;
+}
+
+/* RIGHT SIDE */
+.hero-right{
+    width:45%;
+    height:500px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.big-circle{
+    width:390px;
+    height:390px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#ffd878,#e77820);
+    box-shadow:0 30px 70px rgba(75,33,15,.22);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    animation:float 4s ease-in-out infinite;
+}
+
+.coffee-cup{
+    font-size:145px;
+    filter:drop-shadow(0 20px 15px rgba(50,20,5,.25));
+}
+
+.circle-label{
+    position:absolute;
+    bottom:45px;
+    background:#fff;
+    padding:11px 20px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:bold;
+    color:#4b2113;
+    box-shadow:0 8px 25px rgba(50,20,5,.12);
+}
+
+/* FLOATING CARDS */
+.card{
+    position:absolute;
+    background:#fff;
+    border-radius:16px;
+    padding:15px 18px;
+    box-shadow:0 15px 35px rgba(60,30,10,.14);
+    color:#4b2113;
+    font-size:14px;
+    font-weight:bold;
+    z-index:5;
+}
+
+.card small{
+    display:block;
+    margin-top:5px;
+    color:#9a7562;
+    font-size:11px;
+}
+
+.card-one{
+    top:65px;
+    left:5px;
+}
+
+.card-two{
+    bottom:70px;
+    right:5px;
+}
+
+/* FEATURES */
+.features{
+    max-width:1000px;
+    margin:-30px auto 0;
+    padding:0 25px 60px;
+    position:relative;
+    z-index:10;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.feature{
+    background:#fff;
+    border:1px solid #f0dfca;
+    border-radius:20px;
+    padding:25px 18px;
+    text-align:center;
+    box-shadow:0 12px 30px rgba(70,30,10,.07);
+    transition:.3s;
+}
+
+.feature:hover{
+    transform:translateY(-7px);
+}
+
+.icon{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.feature h3{
+    font-size:16px;
+    color:#4b2113;
+    margin-bottom:8px;
+}
+
+.feature p{
+    font-size:12px;
+    line-height:1.5;
+    color:#87695b;
+}
+
+/* SECOND SECTION */
+.break-section{
+    padding:70px 20px;
+    text-align:center;
+    background:#4b2113;
+    color:#fff;
+}
+
+.break-section h2{
+    font-size:clamp(30px,5vw,55px);
+    margin-bottom:15px;
+}
+
+.break-section p{
+    color:#ead6c7;
+    max-width:600px;
+    margin:auto;
+    line-height:1.7;
+}
+
+.break-section .mini{
+    margin-top:25px;
+    display:inline-block;
+    padding:12px 22px;
+    background:#e87921;
+    border-radius:30px;
+    font-weight:bold;
+}
+
+/* FOOTER */
+footer{
+    background:#291008;
+    color:#d9bca9;
+    text-align:center;
+    padding:25px 15px;
+    font-size:12px;
+}
+
+/* ANIMATION */
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+/* TABLET */
+@media(max-width:850px){
+
+    .hero{
+        display:block;
+        text-align:center;
+        padding:120px 20px 50px;
+    }
+
+    .hero-left{
+        width:100%;
+    }
+
+    .description{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .hero-right{
+        width:100%;
+        height:390px;
+        margin-top:25px;
+    }
+
+    .big-circle{
+        width:300px;
+        height:300px;
+    }
+
+    .coffee-cup{
+        font-size:105px;
+    }
+
+    .card-one{
+        left:3%;
+    }
+
+    .card-two{
+        right:3%;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+        max-width:430px;
+    }
+}
+
+/* MOBILE */
+@media(max-width:500px){
+
+    .nav{
+        padding:18px 20px;
+    }
+
+    .logo{
+        font-size:20px;
+        letter-spacing:3px;
+    }
+
+    .nav-links{
+        gap:10px;
+    }
+
+    .nav-links a{
+        font-size:9px;
+    }
+
+    .hero{
+        padding-top:110px;
+    }
+
+    h1{
+        font-size:65px;
+        letter-spacing:-3px;
+    }
+
+    .tagline{
+        font-size:27px;
+    }
+
+    .description{
+        font-size:14px;
+    }
+
+    .order-btn{
+        width:90%;
+    }
+
+    .hero-right{
+        height:330px;
+    }
+
+    .big-circle{
+        width:245px;
+        height:245px;
+    }
+
+    .coffee-cup{
+        font-size:85px;
+    }
+
+    .circle-label{
+        bottom:25px;
+    }
+
+    .card{
+        padding:11px 13px;
+        font-size:11px;
+    }
+
+    .card-one{
+        top:25px;
+    }
+
+    .card-two{
+        bottom:30px;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
+<!-- NAVIGATION -->
+<nav class="nav">
 
-  <!-- =================================
-       TEVORA PROFESSIONAL POPUP
-  ================================== -->
+    <div class="logo">
+        TEV<span>O</span>RA
+    </div>
 
+    <div class="nav-links">
+        <a href="#home">HOME</a>
+        <a href="#about">ABOUT</a>
+        <a href="#contact">CONTACT</a>
+    </div>
 
-  <div class="poster-overlay" id="tevoraPoster">
+</nav>
 
 
-    <div class="poster">
+<!-- HOME -->
+<section class="hero" id="home">
 
+    <div class="hero-left">
 
-      <!-- CLOSE -->
-      <button
-        class="close-btn"
-        onclick="closePoster()"
-        aria-label="Close poster">
-        ×
-      </button>
+        <div class="badge">
+            ☕ CORPORATE BREAK DELIVERY
+        </div>
 
+        <h1>
+            TEVORA<span>.</span>
+        </h1>
 
+        <div class="tagline">
+            Make Better Breaks.
+        </div>
 
+        <p class="description">
+            Fresh coffee, tea and tasty snacks delivered
+            directly to your workplace. Simple ordering,
+            reasonable prices and fast corporate delivery.
+        </p>
 
-      <!-- BRAND -->
-      <div class="brand">
+        <div class="delivery">
+            <span class="green-dot"></span>
+            5-MINUTE CORPORATE DELIVERY
+        </div>
 
+        <br>
 
-        <div class="brand-icon">🌿</div>
+        <!-- YOUR EXISTING WEBSITE LINK -->
+        <a
+            href="https://rammaheshbabu9-lab.github.io/Corporate-/"
+            class="order-btn"
+        >
+            ORDER NOW
+            <span class="arrow">→</span>
+        </a>
 
+    </div>
 
-        <h1>TEVORA</h1>
 
+    <!-- RIGHT VISUAL -->
+    <div class="hero-right">
 
-        <p>A BETTER TEA BREAK</p>
+        <div class="card card-one">
+            ☕ Fresh Coffee
+            <small>Starting ₹15</small>
+        </div>
 
+        <div class="big-circle">
 
-        <div class="line"></div>
+            <div class="coffee-cup">
+                ☕
+            </div>
 
+            <div class="circle-label">
+                A BETTER TEA BREAK
+            </div>
 
-      </div>
+        </div>
 
+        <div class="card card-two">
+            🥟 2 Samosas
+            <small>Only ₹30</small>
+        </div>
 
+    </div>
 
+</section>
 
-      <!-- HEADLINE -->
-      <div class="headline">
 
+<!-- FEATURES -->
+<section class="features" id="about">
 
-        <h2>
-          GOOD TEA.
-          <span>GOOD TIME.</span>
-          GOOD YOU.
-        </h2>
+    <div class="feature">
 
+        <div class="icon">☕</div>
 
-        <p>
-          Take a break, sip happiness and make
-          every moment better with TEVORA.
-        </p>
+        <h3>FRESH COFFEE</h3>
 
+        <p>
+            Freshly prepared coffee
+            for your office break.
+        </p>
 
-      </div>
+    </div>
 
 
+    <div class="feature">
 
+        <div class="icon">🥟</div>
 
-      <!-- YOUR POSTER IMAGE -->
-      <!-- Put your image in the same folder as this HTML
-           and name it poster.jpg -->
+        <h3>TASTY SNACKS</h3>
 
+        <p>
+            Affordable snacks made
+            for quick corporate breaks.
+        </p>
 
-      <img
-        src="poster.jpg"
-        alt="TEVORA Tea Break"
-        class="product-image"
-      >
+    </div>
 
 
+    <div class="feature">
 
+        <div class="icon">⚡</div>
 
-      <!-- FEATURES -->
-      <div class="features">
+        <h3>FAST DELIVERY</h3>
 
+        <p>
+            Quick delivery designed
+            for busy corporate offices.
+        </p>
 
-        <div class="feature">
-          <div class="feature-icon">🍃</div>
-          <span>PREMIUM<br>QUALITY</span>
-        </div>
+    </div>
 
+</section>
 
-        <div class="feature">
-          <div class="feature-icon">☕</div>
-          <span>PERFECT<br>BLEND</span>
-        </div>
 
+<!-- BREAK SECTION -->
+<section class="break-section">
 
-        <div class="feature">
-          <div class="feature-icon">🌿</div>
-          <span>NATURAL<br>INGREDIENTS</span>
-        </div>
+    <h2>
+        Good Tea. Good Time. Good You.
+    </h2>
 
+    <p>
+        Take a short break, refresh your mind,
+        and get back to work with TEVORA.
+    </p>
 
-        <div class="feature">
-          <div class="feature-icon">🎁</div>
-          <span>MADE WITH<br>CARE</span>
-        </div>
+    <div class="mini">
+        MAKE YOUR BREAK BETTER ☕
+    </div>
 
+</section>
 
-      </div>
 
+<!-- FOOTER -->
+<footer id="contact">
 
+    <strong>TEVORA</strong>
+    <br><br>
+    Make Better Breaks
+    <br>
+    Corporate Coffee & Snack Delivery
 
-
-      <!-- CTA -->
-      <div class="cta">
-
-
-        <h3>
-          DISCOVER THE
-          <span>TEVORA</span>
-          EXPERIENCE
-        </h3>
-
-
-        <p>
-          Explore our website to know more about
-          our range of premium tea & corporate solutions.
-        </p>
-
-
-
-
-        <!-- =================================
-             YOUR URL IS HERE
-        ================================== -->
-
-
-        <a
-          href="https://rammaheshbabu9-lab.github.io/Corporate-/#menu"
-          class="click-now"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          CLICK NOW
-          <span class="arrow">→</span>
-        </a>
-
-
-      </div>
-
-
-
-
-      <!-- FOOTER -->
-      <div class="footer">
-        <span>♡ TRUSTED QUALITY</span>
-        <span>|</span>
-        <span>🍃 REFRESHING TASTE</span>
-        <span>|</span>
-        <span>♡ MADE FOR YOU</span>
-      </div>
-
-
-    </div>
-
-
-  </div>
-
-
-
-
-  <!-- =================================
-       JAVASCRIPT
-  ================================== -->
-
-
-  <script>
-
-
-    function closePoster() {
-      document.getElementById("tevoraPoster").style.display = "none";
-    }
-
-
-  </script>
-
+</footer>
 
 </body>
 </html>
-
