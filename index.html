@@ -2,621 +2,2481 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>TEVORA - Make Better Breaks</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>IBFCL — India Business, Finance & Commerce Leads</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+:root{
+  --navy:#071426;
+  --navy2:#0d1d33;
+  --blue:#1769ff;
+  --light:#eef4ff;
+  --bg:#f5f7fb;
+  --white:#fff;
+  --text:#172235;
+  --muted:#718096;
+  --border:#e3e8f0;
+  --green:#0a9f6e;
+  --shadow:0 10px 30px rgba(7,20,38,.07);
 }
 
-html{
-    scroll-behavior:smooth;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#fff8ec;
-    color:#35180f;
-    overflow-x:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* TOP NAVIGATION */
-.nav{
-    width:100%;
-    padding:20px 6%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:absolute;
-    top:0;
-    left:0;
-    z-index:20;
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+/* LOGIN */
+
+#loginScreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 15% 20%,#1769ff33,transparent 35%),
+    linear-gradient(135deg,#061323,#102946);
+}
+
+.login-card{
+  width:430px;
+  max-width:100%;
+  background:#fff;
+  border-radius:24px;
+  padding:38px;
+  box-shadow:0 30px 90px #0007;
 }
 
 .logo{
-    font-size:26px;
-    font-weight:900;
-    letter-spacing:4px;
-    color:#4b2113;
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:-1.5px;
 }
 
-.logo span{
-    color:#d97722;
+.logo span{color:var(--blue)}
+
+.logo-sub{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
 }
 
-.nav-links{
-    display:flex;
-    gap:25px;
+.login-card h1{
+  margin-top:38px;
+  font-size:25px;
 }
 
-.nav-links a{
-    text-decoration:none;
-    color:#4b2113;
-    font-size:13px;
-    font-weight:bold;
+.login-card p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+  margin-top:7px;
 }
 
-/* MAIN */
-.hero{
-    min-height:100vh;
-    position:relative;
-    display:flex;
-    align-items:center;
-    padding:100px 7% 60px;
-    background:
-        radial-gradient(circle at 85% 30%,#ffd98c 0%,transparent 28%),
-        radial-gradient(circle at 10% 90%,#ffe6bd 0%,transparent 30%),
-        #fff8ec;
+.mobile-input{
+  display:flex;
+  margin-top:23px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
 }
 
-/* LEFT */
-.hero-left{
-    width:55%;
-    position:relative;
-    z-index:5;
+.mobile-input span{
+  padding:13px;
+  background:#f8fafc;
+  border-right:1px solid var(--border);
+  font-size:12px;
+  font-weight:700;
 }
 
-.badge{
-    display:inline-block;
-    background:#fff;
-    border:1px solid #f0c98d;
-    padding:10px 18px;
-    border-radius:30px;
-    font-size:12px;
-    font-weight:bold;
-    color:#70402b;
-    margin-bottom:22px;
-    box-shadow:0 7px 20px rgba(80,40,10,.07);
+.mobile-input input{
+  flex:1;
+  border:0;
+  outline:0;
+  padding:13px;
 }
 
-h1{
-    font-size:clamp(60px,9vw,115px);
-    line-height:.85;
-    letter-spacing:-5px;
-    color:#4b2113;
-    margin-bottom:22px;
+.primary{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  background:var(--blue);
+  color:#fff;
+  padding:13px;
+  margin-top:14px;
+  font-weight:750;
 }
 
-h1 span{
-    color:#e27620;
+.primary:hover{background:#0958df}
+
+.otp{
+  display:flex;
+  gap:7px;
+  margin-top:22px;
 }
 
-.tagline{
-    font-size:clamp(25px,4vw,43px);
-    font-weight:900;
-    color:#2d130b;
-    margin-bottom:18px;
+.otp input{
+  width:100%;
+  height:48px;
+  text-align:center;
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:19px;
+  font-weight:800;
 }
 
-.description{
-    max-width:570px;
-    font-size:16px;
-    line-height:1.7;
-    color:#79594a;
-    margin-bottom:25px;
+.demo-note{
+  text-align:center;
+  font-size:10px!important;
+  margin-top:17px!important;
 }
 
-.delivery{
-    display:inline-flex;
-    align-items:center;
-    gap:9px;
-    background:#fff;
-    padding:11px 18px;
-    border-radius:30px;
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:25px;
-    box-shadow:0 8px 25px rgba(60,30,10,.08);
+/* TOPBAR */
+
+.topbar{
+  height:68px;
+  background:white;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  position:sticky;
+  top:0;
+  z-index:100;
 }
 
-.green-dot{
-    width:9px;
-    height:9px;
-    background:#22a865;
-    border-radius:50%;
-    box-shadow:0 0 10px #22a865;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
 }
 
-/* ORDER BUTTON */
-.order-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:15px;
-    padding:18px 38px;
-    min-width:220px;
-    border-radius:50px;
-    background:linear-gradient(135deg,#e66e1e,#f5b52e);
-    color:#fff;
-    text-decoration:none;
-    font-size:16px;
-    font-weight:900;
-    letter-spacing:1px;
-    box-shadow:0 15px 35px rgba(218,103,25,.30);
-    transition:.3s;
+.brand-icon{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:var(--navy);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:11px;
+  font-weight:900;
 }
 
-.order-btn:hover{
-    transform:translateY(-5px) scale(1.03);
-    box-shadow:0 20px 45px rgba(218,103,25,.40);
+.brand-name{
+  font-size:20px;
+  font-weight:900;
 }
 
-.arrow{
-    font-size:22px;
+.brand-name span{color:var(--blue)}
+
+.top-actions{
+  display:flex;
+  gap:9px;
+  align-items:center;
 }
 
-/* RIGHT SIDE */
-.hero-right{
-    width:45%;
-    height:500px;
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.big-circle{
-    width:390px;
-    height:390px;
-    border-radius:50%;
-    background:linear-gradient(145deg,#ffd878,#e77820);
-    box-shadow:0 30px 70px rgba(75,33,15,.22);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    animation:float 4s ease-in-out infinite;
-}
-
-.coffee-cup{
-    font-size:145px;
-    filter:drop-shadow(0 20px 15px rgba(50,20,5,.25));
-}
-
-.circle-label{
-    position:absolute;
-    bottom:45px;
-    background:#fff;
-    padding:11px 20px;
-    border-radius:30px;
-    font-size:12px;
-    font-weight:bold;
-    color:#4b2113;
-    box-shadow:0 8px 25px rgba(50,20,5,.12);
-}
-
-/* FLOATING CARDS */
-.card{
-    position:absolute;
-    background:#fff;
-    border-radius:16px;
-    padding:15px 18px;
-    box-shadow:0 15px 35px rgba(60,30,10,.14);
-    color:#4b2113;
-    font-size:14px;
-    font-weight:bold;
-    z-index:5;
-}
-
-.card small{
-    display:block;
-    margin-top:5px;
-    color:#9a7562;
-    font-size:11px;
-}
-
-.card-one{
-    top:65px;
-    left:5px;
-}
-
-.card-two{
-    bottom:70px;
-    right:5px;
-}
-
-/* FEATURES */
-.features{
-    max-width:1000px;
-    margin:-30px auto 0;
-    padding:0 25px 60px;
-    position:relative;
-    z-index:10;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.feature{
-    background:#fff;
-    border:1px solid #f0dfca;
-    border-radius:20px;
-    padding:25px 18px;
-    text-align:center;
-    box-shadow:0 12px 30px rgba(70,30,10,.07);
-    transition:.3s;
-}
-
-.feature:hover{
-    transform:translateY(-7px);
+.top-search{
+  width:220px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:9px 12px;
+  outline:0;
+  font-size:11px;
 }
 
 .icon{
-    font-size:34px;
-    margin-bottom:10px;
+  width:38px;
+  height:38px;
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:10px;
 }
 
-.feature h3{
-    font-size:16px;
-    color:#4b2113;
-    margin-bottom:8px;
+.avatar{
+  background:var(--navy);
+  color:#fff;
+  border:0;
+  font-weight:800;
 }
 
-.feature p{
-    font-size:12px;
-    line-height:1.5;
-    color:#87695b;
+/* LAYOUT */
+
+.layout{
+  display:grid;
+  grid-template-columns:245px minmax(0,1fr);
+  min-height:calc(100vh - 68px);
 }
 
-/* SECOND SECTION */
-.break-section{
-    padding:70px 20px;
-    text-align:center;
-    background:#4b2113;
-    color:#fff;
+.sidebar{
+  background:#fff;
+  border-right:1px solid var(--border);
+  padding:20px 13px;
+  position:sticky;
+  top:68px;
+  height:calc(100vh - 68px);
+  overflow:auto;
 }
 
-.break-section h2{
-    font-size:clamp(30px,5vw,55px);
-    margin-bottom:15px;
+.label{
+  color:#9aa5b5;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.3px;
+  padding:12px 10px 7px;
 }
 
-.break-section p{
-    color:#ead6c7;
-    max-width:600px;
-    margin:auto;
-    line-height:1.7;
+.nav{
+  width:100%;
+  border:0;
+  background:transparent;
+  text-align:left;
+  padding:11px 12px;
+  border-radius:9px;
+  color:#526174;
+  font-size:11px;
+  margin-bottom:3px;
 }
 
-.break-section .mini{
-    margin-top:25px;
-    display:inline-block;
-    padding:12px 22px;
-    background:#e87921;
-    border-radius:30px;
-    font-weight:bold;
+.nav:hover,.nav.active{
+  background:var(--light);
+  color:var(--blue);
+  font-weight:700;
 }
 
-/* FOOTER */
-footer{
-    background:#291008;
-    color:#d9bca9;
-    text-align:center;
-    padding:25px 15px;
-    font-size:12px;
+.company-toggle{
+  display:flex;
+  justify-content:space-between;
 }
 
-/* ANIMATION */
-@keyframes float{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-12px);
-    }
+.sectors{
+  display:none;
+  margin-left:17px;
+  padding-left:7px;
+  border-left:1px solid var(--border);
 }
 
-/* TABLET */
-@media(max-width:850px){
+.sectors.open{display:block}
 
-    .hero{
-        display:block;
-        text-align:center;
-        padding:120px 20px 50px;
-    }
+.sector{
+  width:100%;
+  border:0;
+  background:transparent;
+  text-align:left;
+  color:#718096;
+  padding:8px;
+  border-radius:7px;
+  font-size:10px;
+}
 
-    .hero-left{
-        width:100%;
-    }
+.sector:hover,.sector.active{
+  background:var(--light);
+  color:var(--blue);
+  font-weight:700;
+}
 
-    .description{
-        margin-left:auto;
-        margin-right:auto;
-    }
+/* MAIN */
 
-    .hero-right{
-        width:100%;
-        height:390px;
-        margin-top:25px;
-    }
+.main{
+  width:100%;
+  max-width:1500px;
+  padding:30px 4%;
+  margin:auto;
+}
 
-    .big-circle{
-        width:300px;
-        height:300px;
-    }
+.page{display:none}
+.page.active{display:block}
 
-    .coffee-cup{
-        font-size:105px;
-    }
+.welcome{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:23px;
+}
 
-    .card-one{
-        left:3%;
-    }
+.eyebrow{
+  color:var(--blue);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1px;
+}
 
-    .card-two{
-        right:3%;
-    }
+.welcome h1{
+  margin-top:5px;
+  font-size:29px;
+  letter-spacing:-1px;
+}
 
-    .features{
-        grid-template-columns:1fr;
-        max-width:430px;
-    }
+.welcome p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
+
+.date{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* METRICS */
+
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+}
+
+.metric{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+.metric-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.metric-icon{
+  width:34px;
+  height:34px;
+  border-radius:9px;
+  background:var(--light);
+  color:var(--blue);
+  display:grid;
+  place-items:center;
+}
+
+.metric strong{
+  display:block;
+  font-size:25px;
+  margin-top:14px;
+}
+
+.metric small{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* PANELS */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:15px;
+  margin-top:15px;
+}
+
+.panel{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.panel-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:17px;
+}
+
+.panel-title h2{font-size:15px}
+.panel-title span{color:var(--muted);font-size:9px}
+
+.actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+
+.action{
+  border:1px solid var(--border);
+  background:#fbfcfe;
+  border-radius:11px;
+  padding:13px;
+  text-align:left;
+}
+
+.action:hover{
+  background:var(--light);
+  border-color:#b9d0ff;
+}
+
+.action b{
+  display:block;
+  font-size:11px;
+}
+
+.action span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:5px;
+}
+
+.activity{
+  display:grid;
+  gap:12px;
+}
+
+.activity-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  font-size:10px;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+}
+
+.activity-row small{
+  display:block;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+/* PAGE HEADER */
+
+.page-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.breadcrumb{
+  color:var(--muted);
+  font-size:9px;
+  margin-bottom:7px;
+}
+
+.page-head h1{
+  font-size:27px;
+  letter-spacing:-1px;
+}
+
+.page-head p{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:5px;
+}
+
+/* COMPANY CARDS */
+
+.company-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+
+.company-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:16px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.company-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+.company-logo{
+  width:43px;
+  height:43px;
+  background:var(--navy);
+  color:#fff;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  font-size:10px;
+  font-weight:800;
+}
+
+.company-card h3{
+  margin-top:12px;
+  font-size:13px;
+}
+
+.company-sector{
+  color:var(--muted);
+  font-size:9px;
+  margin-top:4px;
+}
+
+.meta{
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid var(--border);
+  padding-top:11px;
+  margin-top:13px;
+  font-size:9px;
+  color:var(--muted);
+}
+
+/* SEARCH */
+
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:5px 10px;
+  margin-bottom:15px;
+}
+
+.search-box input{
+  width:100%;
+  border:0;
+  outline:0;
+  padding:10px 4px;
+  font-size:11px;
+}
+
+/* LIST */
+
+.list{
+  display:grid;
+  gap:10px;
+}
+
+.list-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+}
+
+.list-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.list-card h3{font-size:13px}
+
+.list-card p{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+  margin-top:5px;
+}
+
+.badge{
+  height:max-content;
+  white-space:nowrap;
+  padding:5px 9px;
+  border-radius:20px;
+  background:var(--light);
+  color:var(--blue);
+  font-size:8px;
+}
+
+/* FORMS */
+
+.form-panel{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:21px;
+  margin-bottom:18px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:15px;
+}
+
+.field label{
+  display:block;
+  font-size:9px;
+  font-weight:750;
+  margin-bottom:5px;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:10px;
+  outline:0;
+  font-size:10px;
+}
+
+.field textarea{
+  min-height:95px;
+  resize:vertical;
+}
+
+.full{grid-column:1/-1}
+
+.btn{
+  border:0;
+  border-radius:9px;
+  padding:10px 14px;
+  font-size:10px;
+  font-weight:750;
+}
+
+.btn-blue{background:var(--blue);color:#fff}
+.btn-dark{background:var(--navy);color:#fff}
+.btn-light{background:var(--light);color:var(--blue)}
+
+.outline{
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:9px;
+  padding:9px 13px;
+  font-size:10px;
+  font-weight:700;
+}
+
+/* PROFILE */
+
+.profile{
+  max-width:800px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:26px;
+}
+
+.profile-avatar{
+  width:65px;
+  height:65px;
+  border-radius:17px;
+  background:var(--navy);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:21px;
+  font-weight:900;
+}
+
+.profile h2{
+  margin-top:13px;
+  font-size:21px;
+}
+
+.profile p{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+.profile-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:22px 0;
+}
+
+.profile-stat{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:13px;
+}
+
+.profile-stat small{
+  color:var(--muted);
+  font-size:8px;
+}
+
+.profile-stat b{
+  display:block;
+  margin-top:5px;
+  font-size:13px;
+}
+
+/* NAV */
+
+.page-nav{
+  display:flex;
+  justify-content:space-between;
+  margin-top:24px;
+  padding-top:17px;
+  border-top:1px solid var(--border);
+}
+
+.page-nav button{
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:9px;
+  padding:9px 13px;
+  font-size:9px;
+  font-weight:700;
+}
+
+.page-nav button:hover{
+  background:var(--light);
+  color:var(--blue);
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#061323aa;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:500;
+}
+
+.modal.show{display:flex}
+
+.modal-card{
+  width:560px;
+  max-width:100%;
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:20px;
+  padding:24px;
+}
+
+.close{
+  float:right;
+  width:34px;
+  height:34px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:#fff;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin:18px 0;
+}
+
+.info{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:11px;
+}
+
+.info small{
+  color:var(--muted);
+  font-size:8px;
+}
+
+.info b{
+  display:block;
+  margin-top:4px;
+  font-size:10px;
 }
 
 /* MOBILE */
-@media(max-width:500px){
 
-    .nav{
-        padding:18px 20px;
-    }
+.mobile-nav{display:none}
 
-    .logo{
-        font-size:20px;
-        letter-spacing:3px;
-    }
+@media(max-width:1000px){
+  .metrics{grid-template-columns:1fr 1fr}
+  .dashboard-grid{grid-template-columns:1fr}
+  .company-grid{grid-template-columns:1fr 1fr}
+}
 
-    .nav-links{
-        gap:10px;
-    }
+@media(max-width:700px){
 
-    .nav-links a{
-        font-size:9px;
-    }
+  .topbar{padding:0 15px}
 
-    .hero{
-        padding-top:110px;
-    }
+  .brand-name{font-size:17px}
 
-    h1{
-        font-size:65px;
-        letter-spacing:-3px;
-    }
+  .top-search{display:none}
 
-    .tagline{
-        font-size:27px;
-    }
+  .layout{display:block}
 
-    .description{
-        font-size:14px;
-    }
+  .sidebar{display:none}
 
-    .order-btn{
-        width:90%;
-    }
+  .main{padding:20px 14px 82px}
 
-    .hero-right{
-        height:330px;
-    }
+  .welcome{display:block}
 
-    .big-circle{
-        width:245px;
-        height:245px;
-    }
+  .date{margin-top:12px}
 
-    .coffee-cup{
-        font-size:85px;
-    }
+  .metrics{grid-template-columns:1fr 1fr}
 
-    .circle-label{
-        bottom:25px;
-    }
+  .metric strong{font-size:20px}
 
-    .card{
-        padding:11px 13px;
-        font-size:11px;
-    }
+  .actions{grid-template-columns:1fr}
 
-    .card-one{
-        top:25px;
-    }
+  .company-grid{grid-template-columns:1fr}
 
-    .card-two{
-        bottom:30px;
-    }
+  .form-grid{grid-template-columns:1fr}
+
+  .full{grid-column:auto}
+
+  .profile-stats{grid-template-columns:1fr}
+
+  .mobile-nav{
+    display:flex;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:63px;
+    background:#fffffff5;
+    backdrop-filter:blur(15px);
+    border-top:1px solid var(--border);
+    justify-content:space-around;
+    z-index:200;
+  }
+
+  .mobile-nav button{
+    border:0;
+    background:transparent;
+    color:#7a8697;
+    font-size:8px;
+  }
+
+  .mobile-nav button.active{color:var(--blue)}
+
+  .mobile-nav span{
+    display:block;
+    font-size:17px;
+    margin-bottom:2px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVIGATION -->
-<nav class="nav">
+<!-- LOGIN -->
 
-    <div class="logo">
-        TEV<span>O</span>RA
+<section id="loginScreen">
+
+<div class="login-card">
+
+  <div class="logo">
+    IBFCL<span>.</span>
+  </div>
+
+  <div class="logo-sub">
+    India Business, Finance & Commerce Leads
+  </div>
+
+  <div id="phoneStep">
+
+    <h1>Welcome to IBFCL</h1>
+
+    <p>
+      Sign in securely using your mobile number.
+      No password required.
+    </p>
+
+    <div class="mobile-input">
+      <span>+91</span>
+      <input
+        id="phone"
+        maxlength="10"
+        inputmode="numeric"
+        placeholder="Enter mobile number">
     </div>
 
-    <div class="nav-links">
-        <a href="#home">HOME</a>
-        <a href="#about">ABOUT</a>
-        <a href="#contact">CONTACT</a>
+    <button class="primary" onclick="sendOTP()">
+      Continue
+    </button>
+
+  </div>
+
+
+  <div id="otpStep" class="hidden">
+
+    <h1>Verify your number</h1>
+
+    <p>
+      Enter the 6-digit OTP sent to your mobile number.
+    </p>
+
+    <div class="otp">
+      <input maxlength="1" inputmode="numeric">
+      <input maxlength="1" inputmode="numeric">
+      <input maxlength="1" inputmode="numeric">
+      <input maxlength="1" inputmode="numeric">
+      <input maxlength="1" inputmode="numeric">
+      <input maxlength="1" inputmode="numeric">
     </div>
+
+    <button class="primary" onclick="verifyOTP()">
+      Verify & Continue
+    </button>
+
+    <button
+      class="primary"
+      style="background:#f1f5f9;color:#172033"
+      onclick="backToPhone()">
+      Change Number
+    </button>
+
+  </div>
+
+  <p class="demo-note">
+    Demo OTP: <b>123456</b> · Replace with real SMS OTP API for production.
+  </p>
+
+</div>
+</section>
+
+
+<!-- APP -->
+
+<section id="app" class="hidden">
+
+<header class="topbar">
+
+  <div class="brand" onclick="go('dashboard')">
+
+    <div class="brand-icon">IB</div>
+
+    <div class="brand-name">
+      IBFCL<span>.</span>
+    </div>
+
+  </div>
+
+  <div class="top-actions">
+
+    <input
+      id="topSearch"
+      class="top-search"
+      placeholder="Search companies..."
+      oninput="globalSearch()">
+
+    <button
+      class="icon"
+      onclick="alert('No new notifications')">
+      🔔
+    </button>
+
+    <button
+      id="avatar"
+      class="icon avatar"
+      onclick="go('profile')">
+      U
+    </button>
+
+  </div>
+
+</header>
+
+
+<div class="layout">
+
+<aside class="sidebar">
+
+  <div class="label">OVERVIEW</div>
+
+  <button
+    class="nav active"
+    data-page="dashboard"
+    onclick="go('dashboard',this)">
+    ▸ &nbsp; Dashboard
+  </button>
+
+
+  <div class="label">BUSINESS</div>
+
+  <button
+    class="nav company-toggle"
+    onclick="toggleSectors()">
+
+    <span>▾ &nbsp; Companies</span>
+    <span>›</span>
+
+  </button>
+
+  <div id="sectorMenu" class="sectors">
+
+    <button
+      class="sector active"
+      onclick="selectSector('All Companies',this)">
+      All Companies
+    </button>
+
+  </div>
+
+
+  <div class="label">NETWORK</div>
+
+  <button
+    class="nav"
+    data-page="leads"
+    onclick="go('leads',this)">
+    ◎ &nbsp; Leads
+  </button>
+
+  <button
+    class="nav"
+    data-page="jobs"
+    onclick="go('jobs',this)">
+    ▣ &nbsp; Jobs
+  </button>
+
+
+  <div class="label">ACCOUNT</div>
+
+  <button
+    class="nav"
+    data-page="profile"
+    onclick="go('profile',this)">
+    ◯ &nbsp; Profile
+  </button>
+
+  <button class="nav" onclick="logout()">
+    ↪ &nbsp; Sign out
+  </button>
+
+</aside>
+
+
+<main class="main">
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page active">
+
+  <div class="welcome">
+
+    <div>
+
+      <div class="eyebrow">
+        IBFCL BUSINESS NETWORK
+      </div>
+
+      <h1>
+        Good morning, Business Partner
+      </h1>
+
+      <p>
+        India's Business, Finance & Commerce network.
+      </p>
+
+    </div>
+
+    <div id="today" class="date"></div>
+
+  </div>
+
+
+  <div class="metrics">
+
+    <div class="metric">
+      <div class="metric-top">
+        <small>Companies</small>
+        <div class="metric-icon">▦</div>
+      </div>
+      <strong>400+</strong>
+      <small>Across India</small>
+    </div>
+
+    <div class="metric">
+      <div class="metric-top">
+        <small>Business Leads</small>
+        <div class="metric-icon">◎</div>
+      </div>
+      <strong id="leadCount">0</strong>
+      <small>Active opportunities</small>
+    </div>
+
+    <div class="metric">
+      <div class="metric-top">
+        <small>Jobs</small>
+        <div class="metric-icon">▣</div>
+      </div>
+      <strong id="jobCount">0</strong>
+      <small>Opportunities</small>
+    </div>
+
+    <div class="metric">
+      <div class="metric-top">
+        <small>Sectors</small>
+        <div class="metric-icon">◈</div>
+      </div>
+      <strong>20</strong>
+      <small>Business sectors</small>
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-grid">
+
+    <div class="panel">
+
+      <div class="panel-title">
+        <h2>Quick Actions</h2>
+        <span>BUSINESS SERVICES</span>
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="action"
+          onclick="go('companies')">
+          <b>Find Companies</b>
+          <span>Explore Indian businesses</span>
+        </button>
+
+        <button
+          class="action"
+          onclick="openLeadForm()">
+          <b>Find Leads</b>
+          <span>Connect requirements</span>
+        </button>
+
+        <button
+          class="action"
+          onclick="openJobForm()">
+          <b>Find Jobs</b>
+          <span>Explore opportunities</span>
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="panel">
+
+      <div class="panel-title">
+        <h2>Recent Activity</h2>
+        <span>LIVE</span>
+      </div>
+
+      <div class="activity">
+
+        <div class="activity-row">
+          <span class="dot"></span>
+          <div>
+            Platform ready
+            <small>IBFCL network</small>
+          </div>
+        </div>
+
+        <div class="activity-row">
+          <span class="dot"></span>
+          <div>
+            Company directory
+            <small>20 sectors available</small>
+          </div>
+        </div>
+
+        <div class="activity-row">
+          <span class="dot"></span>
+          <div>
+            Business leads
+            <small>Connect opportunities</small>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div style="margin-top:25px">
+
+    <div class="panel-title">
+      <h2>Featured Companies</h2>
+
+      <button
+        class="outline"
+        onclick="go('companies')">
+        View all
+      </button>
+    </div>
+
+    <div
+      id="featured"
+      class="company-grid">
+    </div>
+
+  </div>
+
+
+  <div class="page-nav">
+    <button onclick="go('dashboard')">← Home</button>
+    <button onclick="go('companies')">Companies →</button>
+  </div>
+
+</section>
+
+
+<!-- COMPANIES -->
+
+<section id="companies" class="page">
+
+  <div class="page-head">
+
+    <div>
+      <div class="breadcrumb">
+        Business / Companies /
+        <span id="sectorBread">All Companies</span>
+      </div>
+
+      <h1 id="companyTitle">All Companies</h1>
+
+      <p id="companySubtitle">
+        Discover businesses across India.
+      </p>
+    </div>
+
+    <button class="outline" onclick="toggleSectors()">
+      Filter Sectors
+    </button>
+
+  </div>
+
+
+  <div class="search-box">
+
+    🔎
+
+    <input
+      id="companySearch"
+      placeholder="Search company, sector or city..."
+      oninput="renderCompanies()">
+
+  </div>
+
+
+  <div id="companyGrid" class="company-grid"></div>
+
+
+  <div class="page-nav">
+
+    <button onclick="go('dashboard')">
+      ← Back
+    </button>
+
+    <button onclick="go('leads')">
+      Next: Leads →
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- LEADS -->
+
+<section id="leads" class="page">
+
+  <div class="page-head">
+
+    <div>
+      <div class="breadcrumb">Network / Leads</div>
+
+      <h1>Business Leads</h1>
+
+      <p>
+        Connect business requirements with companies.
+      </p>
+    </div>
+
+    <button
+      class="btn btn-blue"
+      onclick="openLeadForm()">
+      + Post Lead
+    </button>
+
+  </div>
+
+
+  <div id="leadForm" class="form-panel hidden">
+
+    <h3>Create Business Lead</h3>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Your Name</label>
+        <input id="leadName" placeholder="Full name">
+      </div>
+
+      <div class="field">
+        <label>Company</label>
+        <input id="leadCompany" placeholder="Company name">
+      </div>
+
+      <div class="field">
+        <label>Requirement</label>
+        <input id="leadRequirement" placeholder="What do you need?">
+      </div>
+
+      <div class="field">
+        <label>Location</label>
+        <input id="leadLocation" placeholder="City / State">
+      </div>
+
+      <div class="field full">
+        <label>Details</label>
+        <textarea id="leadDetails"></textarea>
+      </div>
+
+    </div>
+
+    <br>
+
+    <button class="btn btn-dark" onclick="saveLead()">
+      Publish Lead
+    </button>
+
+    <button class="btn btn-light" onclick="closeLeadForm()">
+      Cancel
+    </button>
+
+  </div>
+
+
+  <div id="leadList" class="list"></div>
+
+
+  <div class="page-nav">
+
+    <button onclick="go('companies')">
+      ← Back
+    </button>
+
+    <button onclick="go('jobs')">
+      Jobs →
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- JOBS -->
+
+<section id="jobs" class="page">
+
+  <div class="page-head">
+
+    <div>
+      <div class="breadcrumb">Network / Jobs</div>
+
+      <h1>Jobs</h1>
+
+      <p>
+        Discover opportunities from businesses.
+      </p>
+    </div>
+
+    <button
+      class="btn btn-blue"
+      onclick="openJobForm()">
+      + Post Job
+    </button>
+
+  </div>
+
+
+  <div id="jobForm" class="form-panel hidden">
+
+    <h3>Create Job</h3>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Job Title</label>
+        <input id="jobTitle" placeholder="Sales Manager">
+      </div>
+
+      <div class="field">
+        <label>Company</label>
+        <input id="jobCompany" placeholder="Company">
+      </div>
+
+      <div class="field">
+        <label>Location</label>
+        <input id="jobLocation" placeholder="Hyderabad">
+      </div>
+
+      <div class="field">
+        <label>Type</label>
+        <select id="jobType">
+          <option>Full Time</option>
+          <option>Part Time</option>
+          <option>Internship</option>
+          <option>Contract</option>
+        </select>
+      </div>
+
+      <div class="field full">
+        <label>Description</label>
+        <textarea id="jobDescription"></textarea>
+      </div>
+
+    </div>
+
+    <br>
+
+    <button class="btn btn-dark" onclick="saveJob()">
+      Publish Job
+    </button>
+
+    <button class="btn btn-light" onclick="closeJobForm()">
+      Cancel
+    </button>
+
+  </div>
+
+
+  <div id="jobList" class="list"></div>
+
+
+  <div class="page-nav">
+
+    <button onclick="go('leads')">
+      ← Back
+    </button>
+
+    <button onclick="go('profile')">
+      Profile →
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="page">
+
+  <div class="page-head">
+
+    <div>
+      <div class="breadcrumb">Account / Profile</div>
+      <h1>Profile</h1>
+      <p>Manage your IBFCL account.</p>
+    </div>
+
+    <button
+      class="btn btn-blue"
+      onclick="editProfile()">
+      Edit Profile
+    </button>
+
+  </div>
+
+
+  <div class="profile">
+
+    <div id="profileAvatar" class="profile-avatar">
+      U
+    </div>
+
+    <h2 id="profileName">
+      IBFCL User
+    </h2>
+
+    <p>Business Member</p>
+
+
+    <div class="profile-stats">
+
+      <div class="profile-stat">
+        <small>Mobile</small>
+        <b id="profilePhone">+91</b>
+      </div>
+
+      <div class="profile-stat">
+        <small>My Leads</small>
+        <b id="myLeads">0</b>
+      </div>
+
+      <div class="profile-stat">
+        <small>My Jobs</small>
+        <b id="myJobs">0</b>
+      </div>
+
+    </div>
+
+    <button
+      class="btn btn-dark"
+      onclick="editProfile()">
+      Update Name
+    </button>
+
+  </div>
+
+
+  <div class="page-nav">
+
+    <button onclick="go('jobs')">
+      ← Back
+    </button>
+
+    <button onclick="go('dashboard')">
+      Dashboard →
+    </button>
+
+  </div>
+
+</section>
+
+</main>
+</div>
+
+
+<!-- MOBILE NAV -->
+
+<nav class="mobile-nav">
+
+  <button data-mobile="dashboard" onclick="go('dashboard')">
+    <span>⌂</span>Home
+  </button>
+
+  <button data-mobile="companies" onclick="go('companies')">
+    <span>▦</span>Companies
+  </button>
+
+  <button data-mobile="leads" onclick="go('leads')">
+    <span>◎</span>Leads
+  </button>
+
+  <button data-mobile="jobs" onclick="go('jobs')">
+    <span>▣</span>Jobs
+  </button>
+
+  <button data-mobile="profile" onclick="go('profile')">
+    <span>◯</span>Profile
+  </button>
 
 </nav>
 
-
-<!-- HOME -->
-<section class="hero" id="home">
-
-    <div class="hero-left">
-
-        <div class="badge">
-            ☕ CORPORATE BREAK DELIVERY
-        </div>
-
-        <h1>
-            TEVORA<span>.</span>
-        </h1>
-
-        <div class="tagline">
-            Make Better Breaks.
-        </div>
-
-        <p class="description">
-            Fresh coffee, tea and tasty snacks delivered
-            directly to your workplace. Simple ordering,
-            reasonable prices and fast corporate delivery.
-        </p>
-
-        <div class="delivery">
-            <span class="green-dot"></span>
-            5-MINUTE CORPORATE DELIVERY
-        </div>
-
-        <br>
-
-        <!-- YOUR EXISTING WEBSITE LINK -->
-        <a
-            href="https://rammaheshbabu9-lab.github.io/Corporate-/"
-            class="order-btn"
-        >
-            ORDER NOW
-            <span class="arrow">→</span>
-        </a>
-
-    </div>
-
-
-    <!-- RIGHT VISUAL -->
-    <div class="hero-right">
-
-        <div class="card card-one">
-            ☕ Fresh Coffee
-            <small>Starting ₹15</small>
-        </div>
-
-        <div class="big-circle">
-
-            <div class="coffee-cup">
-                ☕
-            </div>
-
-            <div class="circle-label">
-                A BETTER TEA BREAK
-            </div>
-
-        </div>
-
-        <div class="card card-two">
-            🥟 2 Samosas
-            <small>Only ₹30</small>
-        </div>
-
-    </div>
-
 </section>
 
 
-<!-- FEATURES -->
-<section class="features" id="about">
+<!-- COMPANY MODAL -->
 
-    <div class="feature">
+<div id="modal" class="modal">
 
-        <div class="icon">☕</div>
+  <div class="modal-card">
 
-        <h3>FRESH COFFEE</h3>
+    <button class="close" onclick="closeModal()">×</button>
 
-        <p>
-            Freshly prepared coffee
-            for your office break.
-        </p>
-
+    <div
+      id="modalLogo"
+      class="company-logo">
+      CO
     </div>
 
-
-    <div class="feature">
-
-        <div class="icon">🥟</div>
-
-        <h3>TASTY SNACKS</h3>
-
-        <p>
-            Affordable snacks made
-            for quick corporate breaks.
-        </p>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="icon">⚡</div>
-
-        <h3>FAST DELIVERY</h3>
-
-        <p>
-            Quick delivery designed
-            for busy corporate offices.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- BREAK SECTION -->
-<section class="break-section">
-
-    <h2>
-        Good Tea. Good Time. Good You.
+    <h2 id="modalName" style="margin-top:13px">
+      Company
     </h2>
 
-    <p>
-        Take a short break, refresh your mind,
-        and get back to work with TEVORA.
+    <p
+      id="modalSector"
+      style="color:var(--muted);font-size:10px;margin-top:5px">
     </p>
 
-    <div class="mini">
-        MAKE YOUR BREAK BETTER ☕
+
+    <div class="info-grid">
+
+      <div class="info">
+        <small>Location</small>
+        <b id="modalLocation"></b>
+      </div>
+
+      <div class="info">
+        <small>Rating</small>
+        <b id="modalRating"></b>
+      </div>
+
+      <div class="info">
+        <small>Type</small>
+        <b id="modalType"></b>
+      </div>
+
+      <div class="info">
+        <small>Status</small>
+        <b style="color:var(--green)">
+          ✓ Verified
+        </b>
+      </div>
+
     </div>
 
-</section>
+    <button
+      class="primary"
+      onclick="connectCompany()">
+      Request Business Connection
+    </button>
+
+  </div>
+
+</div>
 
 
-<!-- FOOTER -->
-<footer id="contact">
+<script>
 
-    <strong>TEVORA</strong>
-    <br><br>
-    Make Better Breaks
-    <br>
-    Corporate Coffee & Snack Delivery
+/* ================= DATA ================= */
 
-</footer>
+const sectors=[
+"Banking & Finance",
+"IT & Software",
+"Healthcare & Pharma",
+"Automobile",
+"Manufacturing",
+"Retail & E-commerce",
+"FMCG & Consumer",
+"Telecom & Digital",
+"Energy & Power",
+"Infrastructure & Construction",
+"Logistics & Supply Chain",
+"Education",
+"Real Estate",
+"Travel & Hospitality",
+"Media & Entertainment",
+"Agriculture",
+"Insurance",
+"Professional Services",
+"Startups",
+"Renewable Energy"
+];
+
+const cities=[
+"Mumbai","Bengaluru","Hyderabad","Delhi",
+"Chennai","Pune","Ahmedabad","Kolkata",
+"Noida","Gurugram","Jaipur","Kochi",
+"Coimbatore","Visakhapatnam","Indore","Surat"
+];
+
+const names=[
+"Nova","Prime","Apex","Vertex","BlueStone",
+"Bright","Urban","Global","National","Future",
+"Smart","United","NextGen","Vision","Core",
+"Elite","Rapid","Capital","Crown","Pioneer"
+];
+
+const suffix={
+"Banking & Finance":"Finance",
+"IT & Software":"Technologies",
+"Healthcare & Pharma":"Healthcare",
+"Automobile":"Motors",
+"Manufacturing":"Industries",
+"Retail & E-commerce":"Retail",
+"FMCG & Consumer":"Consumer",
+"Telecom & Digital":"Digital",
+"Energy & Power":"Energy",
+"Infrastructure & Construction":"Infrastructure",
+"Logistics & Supply Chain":"Logistics",
+"Education":"Education",
+"Real Estate":"Properties",
+"Travel & Hospitality":"Hospitality",
+"Media & Entertainment":"Media",
+"Agriculture":"Agri",
+"Insurance":"Insurance",
+"Professional Services":"Consulting",
+"Startups":"Labs",
+"Renewable Energy":"Green"
+};
+
+const companies=[];
+
+let id=1;
+
+sectors.forEach((sector,s)=>{
+  names.forEach((name,i)=>{
+    companies.push({
+      id:id++,
+      name:name+" "+suffix[sector]+" "+(i+1),
+      sector,
+      location:cities[(s+i)%cities.length],
+      rating:(4+(i%10)/10).toFixed(1),
+      type:i%3===0?"Startup":i%3===1?"MSME":"Enterprise"
+    });
+  });
+});
+
+
+/* ================= LOGIN ================= */
+
+function sendOTP(){
+
+  const phone=document
+    .getElementById("phone")
+    .value
+    .replace(/\D/g,"");
+
+  if(!/^[6-9]\d{9}$/.test(phone)){
+    alert("Enter a valid 10-digit Indian mobile number.");
+    return;
+  }
+
+  localStorage.setItem("ibfcl_phone",phone);
+
+  document
+    .getElementById("phoneStep")
+    .classList.add("hidden");
+
+  document
+    .getElementById("otpStep")
+    .classList.remove("hidden");
+
+  document
+    .querySelector(".otp input")
+    .focus();
+}
+
+
+function verifyOTP(){
+
+  const otp=[...
+    document.querySelectorAll(".otp input")
+  ].map(x=>x.value).join("");
+
+  if(otp!=="123456"){
+    alert("Invalid OTP. Demo OTP is 123456.");
+    return;
+  }
+
+  localStorage.setItem("ibfcl_logged","yes");
+
+  showApp();
+}
+
+
+function backToPhone(){
+
+  document
+    .getElementById("otpStep")
+    .classList.add("hidden");
+
+  document
+    .getElementById("phoneStep")
+    .classList.remove("hidden");
+}
+
+
+function showApp(){
+
+  document
+    .getElementById("loginScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("app")
+    .classList.remove("hidden");
+
+  buildSectors();
+  renderFeatured();
+  renderCompanies();
+  renderLeads();
+  renderJobs();
+  updateAll();
+}
+
+
+/* ================= NAVIGATION ================= */
+
+function go(page,element){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  const target=document.getElementById(page);
+
+  if(!target)return;
+
+  target.classList.add("active");
+
+  document
+    .querySelectorAll(".nav[data-page]")
+    .forEach(n=>n.classList.remove("active"));
+
+  if(element){
+    element.classList.add("active");
+  }else{
+
+    const n=document.querySelector(
+      `.nav[data-page="${page}"]`
+    );
+
+    if(n)n.classList.add("active");
+  }
+
+  document
+    .querySelectorAll(".mobile-nav button")
+    .forEach(b=>b.classList.remove("active"));
+
+  const mobile=document.querySelector(
+    `.mobile-nav button[data-mobile="${page}"]`
+  );
+
+  if(mobile)mobile.classList.add("active");
+
+  if(page==="companies")renderCompanies();
+  if(page==="leads")renderLeads();
+  if(page==="jobs")renderJobs();
+  if(page==="profile")updateProfile();
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+
+/* ================= SECTORS ================= */
+
+function buildSectors(){
+
+  const menu=document.getElementById("sectorMenu");
+
+  menu.innerHTML=`
+    <button
+      class="sector active"
+      onclick="selectSector('All Companies',this)">
+      All Companies
+    </button>
+  `;
+
+  sectors.forEach(s=>{
+    menu.innerHTML+=`
+      <button
+        class="sector"
+        onclick="selectSector('${s}',this)">
+        ${s}
+      </button>
+    `;
+  });
+}
+
+
+function toggleSectors(){
+
+  document
+    .getElementById("sectorMenu")
+    .classList.toggle("open");
+}
+
+
+let selectedSector="All Companies";
+
+
+function selectSector(sector,button){
+
+  selectedSector=sector;
+
+  document
+    .querySelectorAll(".sector")
+    .forEach(x=>x.classList.remove("active"));
+
+  button.classList.add("active");
+
+  document.getElementById("companyTitle")
+    .textContent=sector;
+
+  document.getElementById("sectorBread")
+    .textContent=sector;
+
+  document.getElementById("companySubtitle")
+    .textContent=
+      sector==="All Companies"
+      ?"Discover businesses across India."
+      :"Companies operating in "+sector;
+
+  document.getElementById("companySearch").value="";
+
+  go("companies");
+
+  renderCompanies();
+}
+
+
+/* ================= COMPANIES ================= */
+
+function renderCompanies(){
+
+  const search=(
+    document.getElementById("companySearch")?.value||""
+  ).toLowerCase();
+
+  const result=companies.filter(c=>{
+
+    const sectorOK=
+      selectedSector==="All Companies" ||
+      c.sector===selectedSector;
+
+    const searchOK=
+      !search ||
+      c.name.toLowerCase().includes(search) ||
+      c.location.toLowerCase().includes(search) ||
+      c.sector.toLowerCase().includes(search);
+
+    return sectorOK&&searchOK;
+  });
+
+  const grid=document.getElementById("companyGrid");
+
+  if(!grid)return;
+
+  grid.innerHTML=result
+    .slice(0,100)
+    .map(companyCard)
+    .join("");
+}
+
+
+function companyCard(c){
+
+  return `
+    <div
+      class="company-card"
+      onclick="openCompany(${c.id})">
+
+      <div class="company-logo">
+        ${initials(c.name)}
+      </div>
+
+      <h3>${safe(c.name)}</h3>
+
+      <p class="company-sector">
+        ${safe(c.sector)}
+      </p>
+
+      <div class="meta">
+        <span>📍 ${safe(c.location)}</span>
+        <span>★ ${c.rating}</span>
+      </div>
+
+    </div>
+  `;
+}
+
+
+function renderFeatured(){
+
+  document.getElementById("featured")
+    .innerHTML=companies
+      .slice(0,6)
+      .map(companyCard)
+      .join("");
+}
+
+
+/* ================= COMPANY SEARCH ================= */
+
+function globalSearch(){
+
+  const q=document
+    .getElementById("topSearch")
+    .value
+    .trim();
+
+  if(!q)return;
+
+  selectedSector="All Companies";
+
+  document.getElementById("companySearch").value=q;
+
+  go("companies");
+
+  renderCompanies();
+}
+
+
+/* ================= MODAL ================= */
+
+let selectedCompany=null;
+
+function openCompany(id){
+
+  selectedCompany=companies.find(c=>c.id===id);
+
+  if(!selectedCompany)return;
+
+  document.getElementById("modalLogo")
+    .textContent=initials(selectedCompany.name);
+
+  document.getElementById("modalName")
+    .textContent=selectedCompany.name;
+
+  document.getElementById("modalSector")
+    .textContent=selectedCompany.sector;
+
+  document.getElementById("modalLocation")
+    .textContent=selectedCompany.location;
+
+  document.getElementById("modalRating")
+    .textContent="★ "+selectedCompany.rating;
+
+  document.getElementById("modalType")
+    .textContent=selectedCompany.type;
+
+  document.getElementById("modal")
+    .classList.add("show");
+}
+
+
+function closeModal(){
+
+  document
+    .getElementById("modal")
+    .classList.remove("show");
+}
+
+
+function connectCompany(){
+
+  alert(
+    "Connection request sent to "+
+    selectedCompany.name
+  );
+
+  closeModal();
+}
+
+
+/* ================= LEADS ================= */
+
+function leads(){
+
+  return JSON.parse(
+    localStorage.getItem("ibfcl_leads")||"[]"
+  );
+}
+
+function saveLeads(data){
+
+  localStorage.setItem(
+    "ibfcl_leads",
+    JSON.stringify(data)
+  );
+}
+
+
+function openLeadForm(){
+
+  go("leads");
+
+  document
+    .getElementById("leadForm")
+    .classList.remove("hidden");
+}
+
+
+function closeLeadForm(){
+
+  document
+    .getElementById("leadForm")
+    .classList.add("hidden");
+}
+
+
+function saveLead(){
+
+  const lead={
+    name:value("leadName"),
+    company:value("leadCompany"),
+    requirement:value("leadRequirement"),
+    location:value("leadLocation"),
+    details:value("leadDetails"),
+    date:new Date().toLocaleDateString()
+  };
+
+  if(!lead.name||!lead.requirement){
+    alert("Name and requirement are required.");
+    return;
+  }
+
+  const data=leads();
+
+  data.unshift(lead);
+
+  saveLeads(data);
+
+  [
+    "leadName",
+    "leadCompany",
+    "leadRequirement",
+    "leadLocation",
+    "leadDetails"
+  ].forEach(x=>{
+    document.getElementById(x).value="";
+  });
+
+  closeLeadForm();
+
+  renderLeads();
+  updateAll();
+
+  alert("Lead published successfully.");
+}
+
+
+function renderLeads(){
+
+  const list=document.getElementById("leadList");
+
+  if(!list)return;
+
+  const data=leads();
+
+  if(!data.length){
+
+    list.innerHTML=`
+      <div class="panel">
+        <b>No business leads yet</b>
+        <p>Post your first requirement.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  list.innerHTML=data.map(l=>`
+    <div class="list-card">
+
+      <div class="list-top">
+
+        <div>
+          <h3>${safe(l.requirement)}</h3>
+
+          <p>
+            ${safe(l.company||"Individual")}
+            ·
+            ${safe(l.location||"India")}
+          </p>
+        </div>
+
+        <span class="badge">Open</span>
+
+      </div>
+
+      <p>${safe(l.details||"")}</p>
+
+    </div>
+  `).join("");
+}
+
+
+/* ================= JOBS ================= */
+
+function jobs(){
+
+  return JSON.parse(
+    localStorage.getItem("ibfcl_jobs")||"[]"
+  );
+}
+
+function saveJobs(data){
+
+  localStorage.setItem(
+    "ibfcl_jobs",
+    JSON.stringify(data)
+  );
+}
+
+
+function openJobForm(){
+
+  go("jobs");
+
+  document
+    .getElementById("jobForm")
+    .classList.remove("hidden");
+}
+
+
+function closeJobForm(){
+
+  document
+    .getElementById("jobForm")
+    .classList.add("hidden");
+}
+
+
+function saveJob(){
+
+  const job={
+    title:value("jobTitle"),
+    company:value("jobCompany"),
+    location:value("jobLocation"),
+    type:document.getElementById("jobType").value,
+    description:value("jobDescription")
+  };
+
+  if(!job.title||!job.company){
+    alert("Job title and company are required.");
+    return;
+  }
+
+  const data=jobs();
+
+  data.unshift(job);
+
+  saveJobs(data);
+
+  [
+    "jobTitle",
+    "jobCompany",
+    "jobLocation",
+    "jobDescription"
+  ].forEach(x=>{
+    document.getElementById(x).value="";
+  });
+
+  closeJobForm();
+
+  renderJobs();
+  updateAll();
+
+  alert("Job published successfully.");
+}
+
+
+function renderJobs(){
+
+  const list=document.getElementById("jobList");
+
+  if(!list)return;
+
+  const data=jobs();
+
+  if(!data.length){
+
+    list.innerHTML=`
+      <div class="panel">
+        <b>No jobs posted yet</b>
+        <p>Companies can publish opportunities here.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  list.innerHTML=data.map(j=>`
+    <div class="list-card">
+
+      <div class="list-top">
+
+        <div>
+          <h3>${safe(j.title)}</h3>
+
+          <p>
+            ${safe(j.company)}
+            ·
+            ${safe(j.location||"India")}
+          </p>
+        </div>
+
+        <span class="badge">
+          ${safe(j.type)}
+        </span>
+
+      </div>
+
+      <p>${safe(j.description||"")}</p>
+
+    </div>
+  `).join("");
+}
+
+
+/* ================= PROFILE ================= */
+
+function editProfile(){
+
+  const old=
+    localStorage.getItem("ibfcl_name")||
+    "IBFCL User";
+
+  const name=prompt(
+    "Enter your name:",
+    old
+  );
+
+  if(!name)return;
+
+  localStorage.setItem(
+    "ibfcl_name",
+    name.trim()
+  );
+
+  updateProfile();
+}
+
+
+function updateProfile(){
+
+  const name=
+    localStorage.getItem("ibfcl_name")||
+    "IBFCL User";
+
+  const phone=
+    localStorage.getItem("ibfcl_phone")||
+    "";
+
+  document.getElementById("profileName")
+    .textContent=name;
+
+  document.getElementById("profileAvatar")
+    .textContent=initials(name);
+
+  document.getElementById("avatar")
+    .textContent=initials(name);
+
+  document.getElementById("profilePhone")
+    .textContent=phone
+      ?"+91 "+phone
+      :"Not available";
+
+  document.getElementById("myLeads")
+    .textContent=leads().length;
+
+  document.getElementById("myJobs")
+    .textContent=jobs().length;
+}
+
+
+/* ================= UPDATE ================= */
+
+function updateAll(){
+
+  document.getElementById("leadCount")
+    .textContent=leads().length;
+
+  document.getElementById("jobCount")
+    .textContent=jobs().length;
+
+  updateProfile();
+
+  document.getElementById("today")
+    .textContent=
+      new Date().toLocaleDateString(
+        "en-IN",
+        {
+          weekday:"long",
+          day:"numeric",
+          month:"long",
+          year:"numeric"
+        }
+      );
+}
+
+
+/* ================= HELPERS ================= */
+
+function value(id){
+
+  return document
+    .getElementById(id)
+    .value
+    .trim();
+}
+
+
+function initials(name){
+
+  const p=name.trim().split(/\s+/);
+
+  return (
+    (p[0]?.[0]||"U")+
+    (p[1]?.[0]||"")
+  ).toUpperCase();
+}
+
+
+function safe(v){
+
+  return String(v??"")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+/* ================= OTP INPUT ================= */
+
+document.addEventListener("input",e=>{
+
+  if(
+    e.target.matches(".otp input") &&
+    e.target.value.length===1
+  ){
+
+    const next=e.target.nextElementSibling;
+
+    if(next)next.focus();
+  }
+
+});
+
+
+document.addEventListener("keydown",e=>{
+
+  if(
+    e.key==="Backspace" &&
+    e.target.matches(".otp input") &&
+    !e.target.value
+  ){
+
+    const previous=e.target.previousElementSibling;
+
+    if(previous)previous.focus();
+  }
+
+});
+
+
+/* ================= START ================= */
+
+if(
+  localStorage.getItem("ibfcl_logged")==="yes"
+){
+
+  showApp();
+
+}else{
+
+  document
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
+}
+
+</script>
 
 </body>
 </html>
