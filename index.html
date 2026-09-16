@@ -1,164 +1,230 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ASTRARAM — Doranea</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
-  background:#080611;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#090b16;
   color:#fff;
-  font-family:Arial,sans-serif;
-  min-height:100vh;
+  height:100vh;
+  overflow:hidden;
 }
 
 .app{
-  max-width:520px;
-  min-height:100vh;
+  height:100vh;
+  max-width:700px;
   margin:auto;
-  background:
-  radial-gradient(circle at 50% 10%,#45276b,#171026 40%,#080611 80%);
   display:flex;
   flex-direction:column;
+  background:
+    radial-gradient(circle at top,#22265c 0%,#0c0e1c 45%,#070810 100%);
 }
 
+/* HEADER */
+
 header{
-  text-align:center;
-  padding:22px 15px 8px;
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  flex-shrink:0;
 }
 
 .logo{
-  font-size:30px;
+  font-size:22px;
   font-weight:800;
-  letter-spacing:3px;
+  letter-spacing:1px;
 }
 
-.tagline{
-  color:#c8bad8;
-  font-size:13px;
-  margin-top:6px;
+.logo span{
+  color:#a98cff;
 }
 
-.language{
-  margin-top:15px;
-  padding:10px 18px;
-  border-radius:22px;
-  border:1px solid #604878;
-  background:#171020;
-  color:white;
+.lang{
+  background:#171a2d;
+  color:#fff;
+  border:1px solid #343856;
+  padding:9px 11px;
+  border-radius:12px;
+  outline:none;
 }
 
-.profile{
-  text-align:center;
-  padding:28px 20px 12px;
-}
-
-.avatar{
-  width:105px;
-  height:105px;
-  margin:auto;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:45px;
-  background:linear-gradient(145deg,#a66be0,#51277d);
-  box-shadow:0 0 45px rgba(166,107,224,.4);
-}
-
-.name{
-  margin-top:14px;
-  font-size:24px;
-  font-weight:bold;
-}
-
-.status{
-  margin-top:7px;
-  font-size:13px;
-  color:#c8bad8;
-}
+/* CHAT */
 
 .chat{
   flex:1;
   overflow-y:auto;
-  padding:10px 16px 170px;
+  padding:22px 16px 130px;
+  scroll-behavior:smooth;
+}
+
+.welcome{
+  text-align:center;
+  padding:22px 10px 30px;
+}
+
+.avatar{
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  margin:0 auto 15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
+  background:linear-gradient(135deg,#a98cff,#5967ff);
+  box-shadow:0 0 35px rgba(130,110,255,.45);
+}
+
+.welcome h1{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.welcome p{
+  color:#b9bdd1;
+  line-height:1.6;
+  font-size:14px;
 }
 
 .message{
-  max-width:88%;
-  padding:13px 15px;
-  margin:9px 0;
-  border-radius:18px;
-  font-size:15px;
-  line-height:1.5;
+  display:flex;
+  margin:14px 0;
 }
 
-.ai{
-  background:#21172f;
-  border:1px solid #3c2b4d;
+.message.user{
+  justify-content:flex-end;
+}
+
+.bubble{
+  max-width:85%;
+  padding:13px 15px;
+  border-radius:18px;
+  line-height:1.5;
+  font-size:15px;
+  white-space:pre-wrap;
+}
+
+.assistant .bubble{
+  background:#171a2e;
+  border:1px solid #292d49;
   border-bottom-left-radius:5px;
 }
 
-.user{
-  margin-left:auto;
-  background:#673c92;
+.user .bubble{
+  background:linear-gradient(135deg,#7057e8,#4d63d9);
   border-bottom-right-radius:5px;
 }
 
-.bottom{
-  position:fixed;
-  bottom:0;
+/* STATUS */
+
+.status{
+  position:absolute;
+  bottom:100px;
   left:50%;
   transform:translateX(-50%);
-  width:100%;
-  max-width:520px;
-  padding:15px 18px 24px;
-  background:linear-gradient(transparent,#080611 28%);
+  color:#b9bdd1;
+  font-size:13px;
+  white-space:nowrap;
+}
+
+/* CONTROLS */
+
+.controls{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  max-width:700px;
+  margin:auto;
+  height:95px;
+  background:rgba(8,10,20,.94);
+  backdrop-filter:blur(14px);
+  border-top:1px solid rgba(255,255,255,.1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
 }
 
 .mic{
-  width:78px;
-  height:78px;
-  border:0;
+  width:66px;
+  height:66px;
   border-radius:50%;
-  display:block;
-  margin:auto;
-  font-size:31px;
-  color:white;
-  background:linear-gradient(145deg,#a66be0,#572b84);
-  box-shadow:0 0 32px rgba(166,107,224,.45);
+  border:none;
   cursor:pointer;
+  color:#fff;
+  font-size:27px;
+  background:linear-gradient(135deg,#7658f0,#5369e8);
+  box-shadow:0 8px 30px rgba(99,83,230,.4);
+  transition:.2s;
+}
+
+.mic:active{
+  transform:scale(.92);
 }
 
 .mic.listening{
-  background:linear-gradient(145deg,#e04c91,#8c245f);
-  animation:pulse 1s infinite;
+  background:linear-gradient(135deg,#ef5573,#d52d52);
+  animation:pulse 1.2s infinite;
+}
+
+.stop{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid #393d58;
+  background:#171a2b;
+  color:#fff;
+  cursor:pointer;
+  font-size:17px;
 }
 
 @keyframes pulse{
-  50%{
-    transform:scale(1.08);
-    box-shadow:0 0 50px rgba(224,76,145,.7);
+  0%{box-shadow:0 0 0 0 rgba(239,85,115,.5)}
+  70%{box-shadow:0 0 0 18px rgba(239,85,115,0)}
+  100%{box-shadow:0 0 0 0 rgba(239,85,115,0)}
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+  header{
+    height:62px;
   }
-}
 
-.hint{
-  text-align:center;
-  margin-top:9px;
-  color:#aaa0b8;
-  font-size:12px;
-}
+  .logo{
+    font-size:19px;
+  }
 
-.loading{
-  display:none;
-  text-align:center;
-  color:#d0c0df;
-  font-size:13px;
-  margin-bottom:8px;
+  .chat{
+    padding:18px 12px 125px;
+  }
+
+  .welcome h1{
+    font-size:25px;
+  }
+
+  .bubble{
+    font-size:14px;
+    max-width:88%;
+  }
 }
 </style>
 </head>
@@ -168,12 +234,11 @@ header{
 <div class="app">
 
 <header>
-  <div class="logo">ASTRARAM</div>
-  <div class="tagline">
-    Smart Astrology • Personal Guidance
+  <div class="logo">
+    ASTRA<span>RAM</span>
   </div>
 
-  <select id="language" class="language">
+  <select id="language" class="lang">
     <option value="te-IN">తెలుగు</option>
     <option value="en-IN">English</option>
     <option value="hi-IN">हिन्दी</option>
@@ -183,41 +248,47 @@ header{
   </select>
 </header>
 
-<section class="profile">
+<main id="chat" class="chat">
 
-  <div class="avatar">🔮</div>
+  <div class="welcome">
+    <div class="avatar">✦</div>
 
-  <div class="name">Doranea</div>
+    <h1>Hi Raam 😊</h1>
 
-  <div id="status" class="status">
-    Ready to talk with you
+    <p>
+      Welcome to ASTRARAM.<br>
+      Nenu <b>Doranea</b>.<br><br>
+      Mee mind lo em unna freely cheppandi.
+      Career, family, relationship, future,
+      astrology or just normal conversation —
+      anything is okay.
+    </p>
   </div>
 
-</section>
-
-<div id="chat" class="chat">
-
-  <div class="message ai">
-    Namaste 🙏<br><br>
-    Nenu Doranea. Mee tho natural ga matladadaniki ready ga unna.
-    Mic press chesi mee question adagandi.
+  <div class="message assistant">
+    <div class="bubble">
+      Hi Raam 😊 Welcome to ASTRARAM. Nenu Doranea.
+      Ela unnaru? Ikkada meeru naatho friend tho
+      matladinattu freely matladachu.
+      Mee mind lo em unna cheppandi… 😊
+    </div>
   </div>
 
+</main>
+
+<div id="status" class="status">
+  Tap the mic and start talking
 </div>
 
-<div class="bottom">
+<div class="controls">
 
-  <div id="loading" class="loading">
-    Connecting...
-  </div>
-
-  <button id="mic" class="mic">
-    🎙️
+  <button id="stopBtn" class="stop hidden" title="Stop">
+    ■
   </button>
 
-  <div class="hint">
-    Tap microphone and speak
-  </div>
+  <button id="micBtn" class="mic" title="Talk">
+    🎙️
+  </button>
 
 </div>
 
@@ -225,11 +296,69 @@ header{
 
 <script>
 
-const mic = document.getElementById("mic");
-const statusBox = document.getElementById("status");
-const loading = document.getElementById("loading");
+/* =====================================================
+   ASTRARAM — DORANEA
+   FRONTEND VOICE CONVERSATION
+   ===================================================== */
+
 const chat = document.getElementById("chat");
+const micBtn = document.getElementById("micBtn");
+const stopBtn = document.getElementById("stopBtn");
+const statusEl = document.getElementById("status");
 const language = document.getElementById("language");
+
+/* USER */
+
+const userName = "Raam";
+
+/* CONVERSATION */
+
+let conversation = [
+  {
+    role:"system",
+    content:`
+You are Doranea, the friendly AI assistant inside ASTRARAM.
+
+User name is Raam.
+
+Talk like a warm, intelligent human friend.
+
+Do NOT behave like a questionnaire or menu-driven bot.
+
+Never force the user to choose topics such as career, marriage,
+children or money.
+
+The user can talk about anything.
+
+If the user talks about normal daily life, respond naturally.
+
+If the user asks astrology questions, smoothly move into
+astrology discussion.
+
+For personalized astrology, explain that accurate traditional
+chart interpretation requires birth date, exact birth time and
+birth place.
+
+Do not claim guaranteed future predictions.
+
+Keep answers conversational and reasonably short because
+your answers will be spoken aloud.
+
+Ask a natural follow-up question when appropriate.
+
+Use the language selected by the user.
+
+The user may mix Telugu and English naturally.
+
+Be friendly, supportive and conversational.
+`
+  }
+];
+
+
+/* =====================================================
+   SPEECH RECOGNITION
+   ===================================================== */
 
 const SpeechRecognition =
   window.SpeechRecognition ||
@@ -237,384 +366,645 @@ const SpeechRecognition =
 
 let recognition = null;
 let listening = false;
+let speaking = false;
+let shouldContinue = false;
 
+if(SpeechRecognition){
 
-/* =========================
-   MIC BUTTON
-========================= */
-
-mic.addEventListener("click", async function(){
-
-  if(listening){
-    stopListening();
-    return;
-  }
-
-  if(!SpeechRecognition){
-
-    addMessage(
-      "Mee browser voice recognition support cheyyadam ledu. Android Chrome lo website open chesi try cheyyandi.",
-      "ai"
-    );
-
-    return;
-  }
-
-  /*
-    Request microphone permission first.
-    This makes the permission flow clearer.
-  */
-
-  try{
-
-    if(navigator.mediaDevices &&
-       navigator.mediaDevices.getUserMedia){
-
-      const stream =
-        await navigator.mediaDevices.getUserMedia({
-          audio:true
-        });
-
-      stream.getTracks().forEach(
-        track => track.stop()
-      );
-    }
-
-  }catch(error){
-
-    console.log("Microphone:",error);
-
-    statusBox.innerText =
-      "Microphone permission required";
-
-    addMessage(
-      "Microphone access allow cheyyandi. Browser site settings lo Microphone → Allow select chesi page ni refresh cheyyandi.",
-      "ai"
-    );
-
-    return;
-  }
-
-
-  loading.style.display = "block";
-  statusBox.innerText = "Connecting...";
-
-  setTimeout(function(){
-
-    loading.style.display = "none";
-
-    startListening();
-
-  },600);
-
-});
-
-
-/* =========================
-   START SPEECH
-========================= */
-
-function startListening(){
-
-  recognition =
-    new SpeechRecognition();
-
-  recognition.lang =
-    language.value;
+  recognition = new SpeechRecognition();
 
   recognition.continuous = false;
-  recognition.interimResults = false;
+  recognition.interimResults = true;
   recognition.maxAlternatives = 1;
 
+  recognition.lang = language.value;
 
   recognition.onstart = function(){
 
     listening = true;
 
-    mic.classList.add("listening");
-    mic.innerHTML = "⏹️";
+    micBtn.classList.add("listening");
 
-    statusBox.innerText =
-      "Listening... Speak now";
+    statusEl.textContent = "Listening… Speak now";
+
+    stopBtn.classList.remove("hidden");
   };
 
 
   recognition.onresult = function(event){
 
-    const text =
-      event.results[0][0]
-      .transcript
-      .trim();
+    let finalText = "";
+    let interimText = "";
 
-    if(!text) return;
+    for(let i=event.resultIndex;i<event.results.length;i++){
 
-    addMessage(text,"user");
+      const text =
+        event.results[i][0].transcript;
 
-    statusBox.innerText =
-      "Doranea is thinking...";
+      if(event.results[i].isFinal){
 
-    doraneaReply(text);
+        finalText += text;
+
+      }else{
+
+        interimText += text;
+
+      }
+    }
+
+    if(finalText.trim()){
+
+      handleUserMessage(finalText.trim());
+
+    }else if(interimText){
+
+      statusEl.textContent =
+        "Listening… " + interimText;
+    }
+
   };
 
 
   recognition.onerror = function(event){
 
-    console.log(event.error);
+    listening = false;
 
-    resetMic();
+    micBtn.classList.remove("listening");
 
     if(event.error === "not-allowed"){
 
-      statusBox.innerText =
-        "Microphone permission blocked";
+      statusEl.textContent =
+        "Microphone permission allow cheyyandi";
 
-      addMessage(
-        "Microphone permission Allow cheyyandi. Chrome → Site settings → Microphone → Allow.",
-        "ai"
+      alert(
+        "Microphone permission blocked.\n\n" +
+        "Chrome site settings → Microphone → Allow → Refresh"
       );
 
     }else if(event.error === "no-speech"){
 
-      statusBox.innerText =
-        "I didn't hear you";
-
-      addMessage(
-        "Mee voice vinapadaledu. Mic press chesi clear ga malli matladandi.",
-        "ai"
-      );
+      statusEl.textContent =
+        "No speech detected. Tap mic again.";
 
     }else{
 
-      statusBox.innerText =
-        "Ready to talk with you";
-
+      statusEl.textContent =
+        "Microphone error. Please try again.";
     }
+
   };
 
 
   recognition.onend = function(){
 
-    resetMic();
+    listening = false;
+
+    micBtn.classList.remove("listening");
+
+    if(!speaking && shouldContinue){
+
+      setTimeout(()=>{
+
+        if(shouldContinue){
+          startListening();
+        }
+
+      },500);
+
+    }else if(!speaking){
+
+      statusEl.textContent =
+        "Tap the mic and start talking";
+    }
 
   };
 
+}
+
+
+/* =====================================================
+   MICROPHONE
+   ===================================================== */
+
+async function requestMicrophone(){
 
   try{
+
+    const stream =
+      await navigator.mediaDevices.getUserMedia({
+        audio:true
+      });
+
+    stream.getTracks().forEach(track=>{
+      track.stop();
+    });
+
+    return true;
+
+  }catch(error){
+
+    statusEl.textContent =
+      "Microphone permission required";
+
+    alert(
+      "Microphone permission allow cheyyandi.\n\n" +
+      "Chrome → Site settings → Microphone → Allow"
+    );
+
+    return false;
+  }
+}
+
+
+/* =====================================================
+   START LISTENING
+   ===================================================== */
+
+async function startListening(){
+
+  if(!recognition){
+
+    alert(
+      "Mee browser Speech Recognition support cheyyadam ledu. Chrome lo open cheyyandi."
+    );
+
+    return;
+  }
+
+  if(speaking){
+
+    speechSynthesis.cancel();
+
+    speaking = false;
+  }
+
+  const allowed =
+    await requestMicrophone();
+
+  if(!allowed) return;
+
+  try{
+
+    recognition.lang =
+      language.value;
+
+    shouldContinue = true;
 
     recognition.start();
 
   }catch(error){
 
-    console.log(error);
+    if(!String(error.message)
+      .toLowerCase()
+      .includes("already started")){
 
-    resetMic();
+      statusEl.textContent =
+        "Please try again";
+    }
 
   }
+
 }
 
 
-/* =========================
+/* =====================================================
    STOP
-========================= */
+   ===================================================== */
 
-function stopListening(){
+function stopConversation(){
+
+  shouldContinue = false;
 
   if(recognition){
 
     try{
       recognition.stop();
     }catch(e){}
-
   }
-
-  resetMic();
-}
-
-
-/* =========================
-   RESET MIC
-========================= */
-
-function resetMic(){
-
-  listening = false;
-
-  mic.classList.remove("listening");
-
-  mic.innerHTML = "🎙️";
-}
-
-
-/* =========================
-   DORANEA
-========================= */
-
-function doraneaReply(question){
-
-  const q =
-    question.toLowerCase();
-
-  let answer;
-
-
-  if(
-    q.includes("career") ||
-    q.includes("job") ||
-    q.includes("work") ||
-    q.includes("career")
-  ){
-
-    answer =
-    "Okay... mee career gurinchi matladukundam. Meeru job change gurinchi alochistunnara, leka current job lo growth kavala? Mee birth date, exact birth time, birth place share chesthe traditional astrology perspective lo inka personalized ga discuss cheyyagalanu.";
-
-  }
-
-  else if(
-    q.includes("marriage") ||
-    q.includes("pelli")
-  ){
-
-    answer =
-    "Okay... marriage gurinchi chuddam. Mee relationship life lo important decisions ni patience tho teesukovadam useful. Mee birth details unte traditional astrology interpretation tho marriage timing and relationship patterns gurinchi discuss cheyyagalanu.";
-
-  }
-
-  else if(
-    q.includes("money") ||
-    q.includes("finance") ||
-    q.includes("dabbu")
-  ){
-
-    answer =
-    "Money gurinchi adigaru kada. Financial periods ni traditional astrology lo birth chart ni base cheskoni interpret chestaru. Mee birth date, exact time and place share chesthe aa perspective lo matladukundam.";
-
-  }
-
-  else if(
-    q.includes("child") ||
-    q.includes("children") ||
-    q.includes("kids") ||
-    q.includes("pillalu")
-  ){
-
-    answer =
-    "Children gurinchi kuda discuss cheyyachu. Traditional astrology lo fifth house and related planetary positions ni consider chestaru. Personalized interpretation kosam mee complete birth details kavali.";
-
-  }
-
-  else if(
-    q.includes("god") ||
-    q.includes("devudu") ||
-    q.includes("pooja")
-  ){
-
-    answer =
-    "Spiritual guidance gurinchi traditional astrology lo chart ni base cheskoni devotional practices suggest chestaru. Idi traditional guidance matrame, guaranteed remedy ani kaadu. Mee birth details share chesthe aa perspective lo discuss cheddam.";
-
-  }
-
-  else{
-
-    answer =
-    "Hmm... mee question ardham ayyindi. Nenu meetho natural ga discuss chestanu. Personalized astrology conversation kosam mee name, date of birth, exact birth time and birth place share cheyyandi. Tarvatha meeru career, marriage, money, family, children, past, present or future gurinchi edaina adagochu.";
-
-  }
-
-
-  setTimeout(function(){
-
-    addMessage(answer,"ai");
-
-    speak(answer);
-
-    statusBox.innerText =
-      "Ready for your next question";
-
-  },800);
-
-}
-
-
-/* =========================
-   MESSAGE
-========================= */
-
-function addMessage(text,type){
-
-  const div =
-    document.createElement("div");
-
-  div.className =
-    "message " + type;
-
-  div.innerText = text;
-
-  chat.appendChild(div);
-
-  chat.scrollTop =
-    chat.scrollHeight;
-}
-
-
-/* =========================
-   VOICE OUTPUT
-========================= */
-
-function speak(text){
-
-  if(!window.speechSynthesis)
-    return;
 
   speechSynthesis.cancel();
 
-  const voice =
-    new SpeechSynthesisUtterance(text);
+  listening = false;
+  speaking = false;
 
-  voice.lang =
-    language.value;
+  micBtn.classList.remove("listening");
 
-  voice.rate = 0.90;
-  voice.pitch = 1.02;
-  voice.volume = 1;
+  stopBtn.classList.add("hidden");
 
-  speechSynthesis.speak(voice);
+  statusEl.textContent =
+    "Tap the mic and start talking";
 }
 
 
-/* =========================
-   LANGUAGE
-========================= */
+/* =====================================================
+   USER MESSAGE
+   ===================================================== */
 
-language.addEventListener(
-  "change",
-  function(){
+async function handleUserMessage(text){
 
-    let greeting;
+  shouldContinue = false;
 
-    if(this.value === "te-IN"){
+  if(recognition){
 
-      greeting =
-      "Namaste 🙏 Nenu Doranea. Telugu lo mee tho natural ga matladadaniki ready ga unna. Mic press chesi mee question adagandi.";
+    try{
+      recognition.stop();
+    }catch(e){}
+  }
 
-    }else if(this.value === "hi-IN"){
+  addMessage("user",text);
 
-      greeting =
-      "Namaste 🙏 Main Doranea hoon. Aap mujhse astrology ke baare mein koi bhi sawaal pooch sakte hain.";
+  conversation.push({
+    role:"user",
+    content:text
+  });
 
-    }else{
+  statusEl.textContent =
+    "Doranea is thinking…";
 
-      greeting =
-      "Hello 🙏 I am Doranea. You can ask me any astrology question naturally using your microphone.";
+  await getDoraneaResponse();
+
+}
+
+
+/* =====================================================
+   AI RESPONSE
+   ===================================================== */
+
+async function getDoraneaResponse(){
+
+  try{
+
+    const selectedLanguage =
+      language.options[
+        language.selectedIndex
+      ].text;
+
+    const response =
+      await fetch("/api/doranea",{
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+          name:userName,
+
+          language:selectedLanguage,
+
+          messages:conversation
+
+        })
+
+      });
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "Backend unavailable"
+      );
 
     }
 
-    addMessage(greeting,"ai");
+
+    const data =
+      await response.json();
+
+
+    const reply =
+      data.reply ||
+      data.message ||
+      "Sorry Raam, ippudu response ivvalekapothunna.";
+
+
+    conversation.push({
+      role:"assistant",
+      content:reply
+    });
+
+
+    addMessage("assistant",reply);
+
+    speak(reply);
+
+  }catch(error){
+
+    console.error(error);
+
+    /*
+      Backend is not connected.
+      Keep the website usable with a natural
+      local fallback for testing.
+    */
+
+    const fallback =
+      localDoraneaReply(
+        conversation[conversation.length-1].content
+      );
+
+    conversation.push({
+      role:"assistant",
+      content:fallback
+    });
+
+    addMessage("assistant",fallback);
+
+    speak(fallback);
+  }
+
+}
+
+
+/* =====================================================
+   LOCAL FALLBACK
+   ===================================================== */
+
+function localDoraneaReply(text){
+
+  const t =
+    text.toLowerCase();
+
+
+  if(
+    t.includes("event") ||
+    t.includes("function") ||
+    t.includes("party")
+  ){
+
+    return `Oh nice, Raam 😊 Event ki vellabothunnara! Mee mind lo aa event gurinchi emaina excitement unda, leka konchem nervous ga feel avutunnara?`;
+
+  }
+
+
+  if(
+    t.includes("career") ||
+    t.includes("job") ||
+    t.includes("work")
+  ){
+
+    return `Sure Raam 😊 Career gurinchi kuda matladukundam. Astrology perspective lo personalized ga discuss cheyyalante mee birth date, exact birth time, birth place details useful avutayi. Ippudu mee career lo meeku ekkuva concern unna point enti?`;
+
+  }
+
+
+  if(
+    t.includes("marriage") ||
+    t.includes("pelli")
+  ){
+
+    return `Sure Raam 😊 Marriage gurinchi kuda chuddam. Astrology lo personalized discussion kosam birth details useful avutayi. Mee question marriage timing gurinchaa, leka future partner gurinchaa?`;
+
+  }
+
+
+  if(
+    t.includes("money") ||
+    t.includes("money") ||
+    t.includes("finance") ||
+    t.includes("dabbu")
+  ){
+
+    return `Raam 😊 Money and financial growth gurinchi kuda discuss cheyyachu. Astrology ni guidance perspective lo chuddam, guaranteed prediction laga kaadu. Mee concern income gurinchaa, savings gurinchaa, leka business gurinchaa?`;
+
+  }
+
+
+  if(
+    t.includes("god") ||
+    t.includes("pray") ||
+    t.includes("devudu")
+  ){
+
+    return `Raam 😊 Spiritual side kuda matladukovachu. Traditional astrology or spiritual practices lo different beliefs untayi. Mee birth details unte traditional perspective lo discuss cheyyagalanu.`;
+
+  }
+
+
+  if(
+    t.includes("hello") ||
+    t.includes("hi") ||
+    t.includes("hlo")
+  ){
+
+    return `Hi Raam 😊 Nenu ikkade unna. Mee mind lo ippudu em undi? Freely cheppandi.`;
+
+  }
+
+
+  return `Hmm Raam 😊 Ardam ayyindi. Meeru cheppindi continue cheyyandi, nenu vinthunna. Astrology topic aina, daily life aina, anything okay.`;
+
+}
+
+
+/* =====================================================
+   TEXT TO SPEECH
+   ===================================================== */
+
+function speak(text){
+
+  if(!("speechSynthesis" in window)){
+
+    statusEl.textContent =
+      "Ready to talk with you";
+
+    shouldContinue = true;
+
+    setTimeout(startListening,700);
+
+    return;
+  }
+
+
+  speechSynthesis.cancel();
+
+  const utterance =
+    new SpeechSynthesisUtterance(text);
+
+  utterance.lang =
+    language.value;
+
+  utterance.rate = 0.96;
+  utterance.pitch = 1.03;
+  utterance.volume = 1;
+
+
+  const voices =
+    speechSynthesis.getVoices();
+
+  const matchingVoice =
+    voices.find(v =>
+      v.lang &&
+      v.lang.toLowerCase()
+      .startsWith(
+        language.value
+          .split("-")[0]
+          .toLowerCase()
+      )
+    );
+
+  if(matchingVoice){
+
+    utterance.voice =
+      matchingVoice;
+
+  }
+
+
+  speaking = true;
+
+  statusEl.textContent =
+    "Doranea is speaking…";
+
+
+  utterance.onend = function(){
+
+    speaking = false;
+
+    statusEl.textContent =
+      "Listening…";
+
+    /*
+      AUTOMATICALLY START LISTENING
+      AFTER DORANEA FINISHES
+    */
+
+    shouldContinue = true;
+
+    setTimeout(()=>{
+
+      if(shouldContinue){
+
+        startListening();
+
+      }
+
+    },500);
+
+  };
+
+
+  utterance.onerror = function(){
+
+    speaking = false;
+
+    shouldContinue = true;
+
+    startListening();
+
+  };
+
+
+  speechSynthesis.speak(
+    utterance
+  );
+
+}
+
+
+/* =====================================================
+   ADD MESSAGE
+   ===================================================== */
+
+function addMessage(type,text){
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "message " + type;
+
+
+  const bubble =
+    document.createElement("div");
+
+  bubble.className =
+    "bubble";
+
+  bubble.textContent =
+    text;
+
+
+  row.appendChild(bubble);
+
+  chat.appendChild(row);
+
+  setTimeout(()=>{
+
+    chat.scrollTop =
+      chat.scrollHeight;
+
+  },50);
+
+}
+
+
+/* =====================================================
+   BUTTON EVENTS
+   ===================================================== */
+
+micBtn.addEventListener(
+  "click",
+  ()=>{
+
+    if(listening){
+
+      stopConversation();
+
+    }else{
+
+      startListening();
+
+    }
 
   }
 );
+
+
+stopBtn.addEventListener(
+  "click",
+  stopConversation
+);
+
+
+/* =====================================================
+   LANGUAGE
+   ===================================================== */
+
+language.addEventListener(
+  "change",
+  ()=>{
+
+    if(recognition){
+
+      recognition.lang =
+        language.value;
+
+    }
+
+    speechSynthesis.cancel();
+
+    statusEl.textContent =
+      "Language changed. Tap mic to continue.";
+
+  }
+);
+
+
+/* =====================================================
+   LOAD VOICES
+   ===================================================== */
+
+if("speechSynthesis" in window){
+
+  speechSynthesis.onvoiceschanged =
+    function(){};
+
+}
 
 </script>
 
 </body>
 </html>
-```
