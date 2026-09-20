@@ -1,1008 +1,2532 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ASTRARAM — Doranea</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>OnWay News</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+width:100%;
+height:100%;
+overflow:hidden;
+font-family:Arial,Helvetica,sans-serif;
+background:#f8fafc;
+color:#111827
 }
 
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#090b16;
-  color:#fff;
-  height:100vh;
-  overflow:hidden;
-}
-
-.app{
-  height:100vh;
-  max-width:700px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  background:
-    radial-gradient(circle at top,#22265c 0%,#0c0e1c 45%,#070810 100%);
-}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
 
 /* HEADER */
 
-header{
-  height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 18px;
-  border-bottom:1px solid rgba(255,255,255,.1);
-  flex-shrink:0;
+.top-layer{
+position:fixed;
+top:10px;
+left:14px;
+right:14px;
+height:52px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:transparent;
+z-index:1000;
+pointer-events:none
 }
 
-.logo{
-  font-size:22px;
-  font-weight:800;
-  letter-spacing:1px;
+.brand-logo{
+pointer-events:auto;
+user-select:none;
+line-height:1
 }
 
-.logo span{
-  color:#a98cff;
+.brand-top{
+display:flex;
+align-items:center;
+gap:7px
 }
 
-.lang{
-  background:#171a2d;
-  color:#fff;
-  border:1px solid #343856;
-  padding:9px 11px;
-  border-radius:12px;
-  outline:none;
+.logo-mark{
+width:31px;
+height:31px;
+border-radius:10px;
+background:#2563eb;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-size:17px;
+font-weight:900
 }
 
-/* CHAT */
-
-.chat{
-  flex:1;
-  overflow-y:auto;
-  padding:22px 16px 130px;
-  scroll-behavior:smooth;
+.logo-text{
+font-size:20px;
+font-weight:900;
+letter-spacing:-.8px;
+color:#2563eb
 }
 
-.welcome{
-  text-align:center;
-  padding:22px 10px 30px;
+.logo-news{
+font-size:8px;
+font-weight:900;
+letter-spacing:3px;
+color:#ef4444;
+margin-left:39px;
+margin-top:-3px
 }
 
-.avatar{
-  width:82px;
-  height:82px;
-  border-radius:50%;
-  margin:0 auto 15px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:34px;
-  background:linear-gradient(135deg,#a98cff,#5967ff);
-  box-shadow:0 0 35px rgba(130,110,255,.45);
+.top-buttons{
+display:flex;
+gap:9px;
+pointer-events:auto
 }
 
-.welcome h1{
-  font-size:28px;
-  margin-bottom:8px;
+.top-btn{
+width:42px;
+height:42px;
+border-radius:50%;
+border:0;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:23px;
+font-weight:bold;
+box-shadow:0 3px 12px rgba(15,23,42,.12)
 }
 
-.welcome p{
-  color:#b9bdd1;
-  line-height:1.6;
-  font-size:14px;
+.add-btn{
+background:#2563eb;
+color:#fff
 }
 
-.message{
-  display:flex;
-  margin:14px 0;
+.profile-btn{
+background:#fff;
+color:#2563eb;
+font-size:17px
 }
 
-.message.user{
-  justify-content:flex-end;
+/* FEED */
+
+.news-feed{
+width:100%;
+height:100%;
+overflow-y:auto;
+scroll-snap-type:y mandatory;
+scroll-behavior:smooth
 }
 
-.bubble{
-  max-width:85%;
-  padding:13px 15px;
-  border-radius:18px;
-  line-height:1.5;
-  font-size:15px;
-  white-space:pre-wrap;
+.news-card{
+width:100%;
+height:100%;
+min-height:100%;
+scroll-snap-align:start;
+scroll-snap-stop:always;
+display:flex;
+flex-direction:column;
+background:#fff
 }
 
-.assistant .bubble{
-  background:#171a2e;
-  border:1px solid #292d49;
-  border-bottom-left-radius:5px;
+.news-media{
+width:100%;
+height:30%;
+min-height:210px;
+background:#e2e8f0;
+overflow:hidden;
+flex-shrink:0
 }
 
-.user .bubble{
-  background:linear-gradient(135deg,#7057e8,#4d63d9);
-  border-bottom-right-radius:5px;
+.news-media img,
+.news-media video{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
 }
 
-/* STATUS */
+.news-media video{background:#000}
 
-.status{
-  position:absolute;
-  bottom:100px;
-  left:50%;
-  transform:translateX(-50%);
-  color:#b9bdd1;
-  font-size:13px;
-  white-space:nowrap;
+.media-placeholder{
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:55px;
+color:#94a3b8;
+background:#e2e8f0
 }
 
-/* CONTROLS */
-
-.controls{
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  max-width:700px;
-  margin:auto;
-  height:95px;
-  background:rgba(8,10,20,.94);
-  backdrop-filter:blur(14px);
-  border-top:1px solid rgba(255,255,255,.1);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
+.news-content{
+height:70%;
+min-height:0;
+padding:20px 18px 24px;
+display:flex;
+flex-direction:column
 }
 
-.mic{
-  width:66px;
-  height:66px;
-  border-radius:50%;
-  border:none;
-  cursor:pointer;
-  color:#fff;
-  font-size:27px;
-  background:linear-gradient(135deg,#7658f0,#5369e8);
-  box-shadow:0 8px 30px rgba(99,83,230,.4);
-  transition:.2s;
+.location{
+color:#2563eb;
+font-size:14px;
+font-weight:700;
+margin-bottom:10px
 }
 
-.mic:active{
-  transform:scale(.92);
+.headline{
+font-size:25px;
+line-height:1.2;
+font-weight:800;
+margin-bottom:13px
 }
 
-.mic.listening{
-  background:linear-gradient(135deg,#ef5573,#d52d52);
-  animation:pulse 1.2s infinite;
+.news-matter{
+font-size:16px;
+line-height:1.6;
+color:#374151;
+overflow-y:auto
 }
 
-.stop{
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  border:1px solid #393d58;
-  background:#171a2b;
-  color:#fff;
-  cursor:pointer;
-  font-size:17px;
+.news-actions{
+margin-top:auto;
+padding-top:16px;
+display:flex;
+justify-content:space-between;
+border-top:1px solid #e2e8f0
 }
 
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(239,85,115,.5)}
-  70%{box-shadow:0 0 0 18px rgba(239,85,115,0)}
-  100%{box-shadow:0 0 0 0 rgba(239,85,115,0)}
+.action-btn{
+border:0;
+background:transparent;
+font-size:15px;
+font-weight:700;
+color:#475569;
+padding:9px 4px
 }
 
-.hidden{
-  display:none!important;
+.like-btn.liked{color:#ef4444}
+
+/* MODAL */
+
+.modal-overlay{
+position:fixed;
+inset:0;
+background:rgba(15,23,42,.48);
+display:none;
+align-items:flex-end;
+justify-content:center;
+z-index:2000
 }
 
-/* MOBILE */
+.modal-overlay.show{display:flex}
 
-@media(max-width:500px){
-  header{
-    height:62px;
-  }
+.modal{
+width:100%;
+max-width:520px;
+max-height:92vh;
+overflow-y:auto;
+background:#fff;
+border-radius:24px 24px 0 0;
+padding:22px 18px 30px
+}
 
-  .logo{
-    font-size:19px;
-  }
+.modal-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px
+}
 
-  .chat{
-    padding:18px 12px 125px;
-  }
+.modal-title{
+font-size:22px;
+font-weight:800
+}
 
-  .welcome h1{
-    font-size:25px;
-  }
+.close-btn{
+width:38px;
+height:38px;
+border:0;
+border-radius:50%;
+background:#f1f5f9;
+font-size:22px
+}
 
-  .bubble{
-    font-size:14px;
-    max-width:88%;
-  }
+.form-group{margin-bottom:15px}
+
+.form-label{
+display:block;
+font-size:14px;
+font-weight:700;
+margin-bottom:7px
+}
+
+.form-input,
+.form-select,
+.form-textarea{
+width:100%;
+border:1px solid #e2e8f0;
+border-radius:12px;
+padding:13px 14px;
+font-size:16px;
+outline:none;
+background:#fff
+}
+
+.form-textarea{
+min-height:130px;
+resize:vertical
+}
+
+.primary-btn{
+width:100%;
+border:0;
+border-radius:13px;
+padding:14px;
+background:#2563eb;
+color:#fff;
+font-size:16px;
+font-weight:800
+}
+
+.primary-btn:disabled{opacity:.6}
+
+.secondary-btn{
+width:100%;
+border:1px solid #e2e8f0;
+border-radius:13px;
+padding:13px;
+background:#fff;
+font-size:16px;
+font-weight:700;
+margin-top:10px
+}
+
+.danger-btn{
+width:100%;
+border:0;
+border-radius:13px;
+padding:14px;
+background:#fee2e2;
+color:#dc2626;
+font-size:16px;
+font-weight:800;
+margin-top:10px
+}
+
+.menu-item{
+width:100%;
+border:0;
+background:#f8fafc;
+padding:17px;
+margin-bottom:10px;
+border-radius:14px;
+text-align:left;
+font-size:16px;
+font-weight:700
+}
+
+.file-box{
+border:2px dashed #cbd5e1;
+border-radius:13px;
+padding:18px;
+text-align:center;
+color:#64748b
+}
+
+.file-box input{
+width:100%;
+margin-top:10px
+}
+
+.file-preview{
+display:none;
+width:100%;
+margin-top:12px;
+border-radius:13px;
+overflow:hidden;
+background:#e2e8f0
+}
+
+.file-preview.show{display:block}
+
+.file-preview img,
+.file-preview video{
+width:100%;
+max-height:220px;
+object-fit:cover;
+display:block
+}
+
+.file-name{
+padding:9px 10px;
+font-size:12px;
+color:#475569;
+background:#f8fafc;
+word-break:break-word
+}
+
+.my-news-item{
+border:1px solid #e2e8f0;
+border-radius:15px;
+padding:14px;
+margin-bottom:12px
+}
+
+.my-news-title{
+font-size:17px;
+font-weight:800;
+margin-bottom:5px
+}
+
+.my-news-location{
+color:#2563eb;
+font-size:13px;
+margin-bottom:12px
+}
+
+.delete-news-btn{
+border:0;
+border-radius:10px;
+background:#fee2e2;
+color:#dc2626;
+padding:9px 12px;
+font-weight:700
+}
+
+.login-info{
+text-align:center;
+color:#64748b;
+font-size:13px;
+margin-bottom:18px
+}
+
+.toast{
+position:fixed;
+left:50%;
+bottom:25px;
+transform:translateX(-50%) translateY(20px);
+background:#111827;
+color:#fff;
+padding:12px 17px;
+border-radius:12px;
+font-size:14px;
+opacity:0;
+pointer-events:none;
+transition:.25s;
+z-index:5000;
+max-width:90%;
+text-align:center
+}
+
+.toast.show{
+opacity:1;
+transform:translateX(-50%) translateY(0)
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="app">
+<header class="top-layer">
 
-<header>
-  <div class="logo">
-    ASTRA<span>RAM</span>
-  </div>
+<div class="brand-logo">
 
-  <select id="language" class="lang">
-    <option value="te-IN">తెలుగు</option>
-    <option value="en-IN">English</option>
-    <option value="hi-IN">हिन्दी</option>
-    <option value="ta-IN">தமிழ்</option>
-    <option value="kn-IN">ಕನ್ನಡ</option>
-    <option value="ml-IN">മലയാളം</option>
-  </select>
+<div class="brand-top">
+
+<div class="logo-mark">➜</div>
+
+<div class="logo-text">ONWAY</div>
+
+</div>
+
+<div class="logo-news">NEWS</div>
+
+</div>
+
+<div class="top-buttons">
+
+<button
+class="top-btn add-btn"
+onclick="openPlusMenu()">+</button>
+
+<button
+class="top-btn profile-btn"
+onclick="openProfile()">P</button>
+
+</div>
+
 </header>
 
-<main id="chat" class="chat">
-
-  <div class="welcome">
-    <div class="avatar">✦</div>
-
-    <h1>Hi Raam 😊</h1>
-
-    <p>
-      Welcome to ASTRARAM.<br>
-      Nenu <b>Doranea</b>.<br><br>
-      Mee mind lo em unna freely cheppandi.
-      Career, family, relationship, future,
-      astrology or just normal conversation —
-      anything is okay.
-    </p>
-  </div>
-
-  <div class="message assistant">
-    <div class="bubble">
-      Hi Raam 😊 Welcome to ASTRARAM. Nenu Doranea.
-      Ela unnaru? Ikkada meeru naatho friend tho
-      matladinattu freely matladachu.
-      Mee mind lo em unna cheppandi… 😊
-    </div>
-  </div>
-
+<main
+id="newsFeed"
+class="news-feed">
 </main>
 
-<div id="status" class="status">
-  Tap the mic and start talking
+<!-- PLUS -->
+
+<div
+id="plusMenuModal"
+class="modal-overlay">
+
+<div class="modal">
+
+<div class="modal-header">
+
+<div class="modal-title">
+OnWay News
 </div>
 
-<div class="controls">
-
-  <button id="stopBtn" class="stop hidden" title="Stop">
-    ■
-  </button>
-
-  <button id="micBtn" class="mic" title="Talk">
-    🎙️
-  </button>
+<button
+class="close-btn"
+onclick="closeModal('plusMenuModal')">×</button>
 
 </div>
 
+<button
+class="menu-item"
+onclick="openAddNewsForm()">
+➕ Add News </button>
+
+<button
+class="menu-item"
+onclick="openMyNews()">
+📰 My Uploaded News </button>
+
+</div>
+
+</div>
+
+<!-- ADD NEWS -->
+
+<div
+id="addNewsModal"
+class="modal-overlay">
+
+<div class="modal">
+
+<div class="modal-header">
+
+<div class="modal-title">
+Add News
+</div>
+
+<button
+class="close-btn"
+onclick="closeModal('addNewsModal')">×</button>
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+News Headline
+</label>
+
+<input
+id="newsHeadline"
+class="form-input"
+type="text"
+placeholder="Enter news headline">
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+Location
+</label>
+
+<select
+id="newsLocation"
+class="form-select">
+
+<option value="">
+Select State / UT
+</option>
+
+<option>Andhra Pradesh</option>
+<option>Arunachal Pradesh</option>
+<option>Assam</option>
+<option>Bihar</option>
+<option>Chhattisgarh</option>
+<option>Goa</option>
+<option>Gujarat</option>
+<option>Haryana</option>
+<option>Himachal Pradesh</option>
+<option>Jharkhand</option>
+<option>Karnataka</option>
+<option>Kerala</option>
+<option>Madhya Pradesh</option>
+<option>Maharashtra</option>
+<option>Manipur</option>
+<option>Meghalaya</option>
+<option>Mizoram</option>
+<option>Nagaland</option>
+<option>Odisha</option>
+<option>Punjab</option>
+<option>Rajasthan</option>
+<option>Sikkim</option>
+<option>Tamil Nadu</option>
+<option>Telangana</option>
+<option>Tripura</option>
+<option>Uttar Pradesh</option>
+<option>Uttarakhand</option>
+<option>West Bengal</option>
+<option>Andaman and Nicobar Islands</option>
+<option>Chandigarh</option>
+<option>Dadra and Nagar Haveli and Daman and Diu</option>
+<option>Delhi</option>
+<option>Jammu and Kashmir</option>
+<option>Ladakh</option>
+<option>Lakshadweep</option>
+<option>Puducherry</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+Picture / Video Upload
+</label>
+
+<div class="file-box">
+
+Select picture or video from your phone
+
+<input
+id="mediaFile"
+type="file"
+accept="image/*,video/*"
+onchange="previewSelectedMedia()">
+
+<div
+id="filePreview"
+class="file-preview">
+
+<div id="previewContent"></div>
+
+<div
+id="fileName"
+class="file-name">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+News Matter
+</label>
+
+<textarea
+id="newsMatter"
+class="form-textarea"
+placeholder="Write complete news matter..."></textarea>
+
+</div>
+
+<button
+id="publishBtn"
+class="primary-btn"
+type="button"
+onclick="publishNews()">
+
+Publish News
+
+</button>
+
+</div>
+
+</div>
+
+<!-- MY NEWS -->
+
+<div
+id="myNewsModal"
+class="modal-overlay">
+
+<div class="modal">
+
+<div class="modal-header">
+
+<div class="modal-title">
+My Uploaded News
+</div>
+
+<button
+class="close-btn"
+onclick="closeModal('myNewsModal')">×</button>
+
+</div>
+
+<div id="myNewsList"></div>
+
+</div>
+
+</div>
+
+<!-- LOGIN -->
+
+<div
+id="loginModal"
+class="modal-overlay">
+
+<div class="modal">
+
+<div class="modal-header">
+
+<div class="modal-title">
+Login
+</div>
+
+<button
+class="close-btn"
+onclick="closeModal('loginModal')">×</button>
+
+</div>
+
+<div class="login-info">
+Any name, phone number and password will work.
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+Name
+</label>
+
+<input
+id="loginName"
+class="form-input"
+type="text"
+placeholder="Your name">
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+Phone Number
+</label>
+
+<input
+id="loginPhone"
+class="form-input"
+type="tel"
+placeholder="Phone number">
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+Password
+</label>
+
+<input
+id="loginPassword"
+class="form-input"
+type="password"
+placeholder="Password">
+
+</div>
+
+<button
+class="primary-btn"
+type="button"
+onclick="loginUser()">
+
+Login
+
+</button>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div
+id="profileModal"
+class="modal-overlay">
+
+<div class="modal">
+
+<div class="modal-header">
+
+<div class="modal-title">
+Profile
+</div>
+
+<button
+class="close-btn"
+onclick="closeModal('profileModal')">×</button>
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+Name
+</label>
+
+<input
+id="profileName"
+class="form-input"
+type="text">
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+Phone Number
+</label>
+
+<input
+id="profilePhone"
+class="form-input"
+type="tel">
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+New Password
+</label>
+
+<input
+id="profilePassword"
+class="form-input"
+type="password">
+
+</div>
+
+<button
+class="primary-btn"
+type="button"
+onclick="updateProfile()">
+
+Update Profile
+
+</button>
+
+<button
+class="secondary-btn"
+type="button"
+onclick="logoutUser()">
+
+Logout
+
+</button>
+
+<button
+class="danger-btn"
+type="button"
+onclick="deleteAccount()">
+
+Delete Account
+
+</button>
+
+</div>
+
+</div>
+
+<div
+id="toast"
+class="toast">
 </div>
 
 <script>
 
-/* =====================================================
-   ASTRARAM — DORANEA
-   FRONTEND VOICE CONVERSATION
-   ===================================================== */
+/* DEFAULT NEWS */
 
-const chat = document.getElementById("chat");
-const micBtn = document.getElementById("micBtn");
-const stopBtn = document.getElementById("stopBtn");
-const statusEl = document.getElementById("status");
-const language = document.getElementById("language");
+const defaultNews=[
 
-/* USER */
+{
+id:"default-1",
+location:"Visakhapatnam",
+headline:"Latest News From Visakhapatnam",
+matter:"Important local updates, breaking developments and major happenings from Visakhapatnam.",
+image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
+},
 
-const userName = "Raam";
+{
+id:"default-2",
+location:"Andhra Pradesh",
+headline:"Andhra Pradesh Latest Updates",
+matter:"Get the latest important news and updates from across Andhra Pradesh.",
+image:"https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1200&q=80"
+},
 
-/* CONVERSATION */
+{
+id:"default-3",
+location:"India",
+headline:"India News",
+matter:"Major national developments and important stories from across India.",
+image:"https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=80"
+}
 
-let conversation = [
-  {
-    role:"system",
-    content:`
-You are Doranea, the friendly AI assistant inside ASTRARAM.
-
-User name is Raam.
-
-Talk like a warm, intelligent human friend.
-
-Do NOT behave like a questionnaire or menu-driven bot.
-
-Never force the user to choose topics such as career, marriage,
-children or money.
-
-The user can talk about anything.
-
-If the user talks about normal daily life, respond naturally.
-
-If the user asks astrology questions, smoothly move into
-astrology discussion.
-
-For personalized astrology, explain that accurate traditional
-chart interpretation requires birth date, exact birth time and
-birth place.
-
-Do not claim guaranteed future predictions.
-
-Keep answers conversational and reasonably short because
-your answers will be spoken aloud.
-
-Ask a natural follow-up question when appropriate.
-
-Use the language selected by the user.
-
-The user may mix Telugu and English naturally.
-
-Be friendly, supportive and conversational.
-`
-  }
 ];
 
 
-/* =====================================================
-   SPEECH RECOGNITION
-   ===================================================== */
+/* NEWS */
 
-const SpeechRecognition =
-  window.SpeechRecognition ||
-  window.webkitSpeechRecognition;
+function getSavedNews(){
 
-let recognition = null;
-let listening = false;
-let speaking = false;
-let shouldContinue = false;
+try{
 
-if(SpeechRecognition){
+return JSON.parse(
+localStorage.getItem("onway_news") || "[]"
+);
 
-  recognition = new SpeechRecognition();
+}catch(e){
 
-  recognition.continuous = false;
-  recognition.interimResults = true;
-  recognition.maxAlternatives = 1;
+return [];
 
-  recognition.lang = language.value;
+}
 
-  recognition.onstart = function(){
+}
 
-    listening = true;
+function saveNews(news){
 
-    micBtn.classList.add("listening");
-
-    statusEl.textContent = "Listening… Speak now";
-
-    stopBtn.classList.remove("hidden");
-  };
-
-
-  recognition.onresult = function(event){
-
-    let finalText = "";
-    let interimText = "";
-
-    for(let i=event.resultIndex;i<event.results.length;i++){
-
-      const text =
-        event.results[i][0].transcript;
-
-      if(event.results[i].isFinal){
-
-        finalText += text;
-
-      }else{
-
-        interimText += text;
-
-      }
-    }
-
-    if(finalText.trim()){
-
-      handleUserMessage(finalText.trim());
-
-    }else if(interimText){
-
-      statusEl.textContent =
-        "Listening… " + interimText;
-    }
-
-  };
-
-
-  recognition.onerror = function(event){
-
-    listening = false;
-
-    micBtn.classList.remove("listening");
-
-    if(event.error === "not-allowed"){
-
-      statusEl.textContent =
-        "Microphone permission allow cheyyandi";
-
-      alert(
-        "Microphone permission blocked.\n\n" +
-        "Chrome site settings → Microphone → Allow → Refresh"
-      );
-
-    }else if(event.error === "no-speech"){
-
-      statusEl.textContent =
-        "No speech detected. Tap mic again.";
-
-    }else{
-
-      statusEl.textContent =
-        "Microphone error. Please try again.";
-    }
-
-  };
-
-
-  recognition.onend = function(){
-
-    listening = false;
-
-    micBtn.classList.remove("listening");
-
-    if(!speaking && shouldContinue){
-
-      setTimeout(()=>{
-
-        if(shouldContinue){
-          startListening();
-        }
-
-      },500);
-
-    }else if(!speaking){
-
-      statusEl.textContent =
-        "Tap the mic and start talking";
-    }
-
-  };
+localStorage.setItem(
+"onway_news",
+JSON.stringify(news)
+);
 
 }
 
 
-/* =====================================================
-   MICROPHONE
-   ===================================================== */
+/* USER */
 
-async function requestMicrophone(){
+function getCurrentUser(){
 
-  try{
+try{
 
-    const stream =
-      await navigator.mediaDevices.getUserMedia({
-        audio:true
-      });
+return JSON.parse(
+localStorage.getItem("onway_current_user") || "null"
+);
 
-    stream.getTracks().forEach(track=>{
-      track.stop();
-    });
+}catch(e){
 
-    return true;
+return null;
 
-  }catch(error){
-
-    statusEl.textContent =
-      "Microphone permission required";
-
-    alert(
-      "Microphone permission allow cheyyandi.\n\n" +
-      "Chrome → Site settings → Microphone → Allow"
-    );
-
-    return false;
-  }
 }
 
+}
 
-/* =====================================================
-   START LISTENING
-   ===================================================== */
+function setCurrentUser(user){
 
-async function startListening(){
+if(user){
 
-  if(!recognition){
+localStorage.setItem(
+"onway_current_user",
+JSON.stringify(user)
+);
 
-    alert(
-      "Mee browser Speech Recognition support cheyyadam ledu. Chrome lo open cheyyandi."
-    );
+}else{
 
-    return;
-  }
+localStorage.removeItem(
+"onway_current_user"
+);
 
-  if(speaking){
-
-    speechSynthesis.cancel();
-
-    speaking = false;
-  }
-
-  const allowed =
-    await requestMicrophone();
-
-  if(!allowed) return;
-
-  try{
-
-    recognition.lang =
-      language.value;
-
-    shouldContinue = true;
-
-    recognition.start();
-
-  }catch(error){
-
-    if(!String(error.message)
-      .toLowerCase()
-      .includes("already started")){
-
-      statusEl.textContent =
-        "Please try again";
-    }
-
-  }
+}
 
 }
 
 
-/* =====================================================
-   STOP
-   ===================================================== */
+/* MODALS */
 
-function stopConversation(){
+function openModal(id){
 
-  shouldContinue = false;
+document
+.getElementById(id)
+.classList.add("show");
 
-  if(recognition){
-
-    try{
-      recognition.stop();
-    }catch(e){}
-  }
-
-  speechSynthesis.cancel();
-
-  listening = false;
-  speaking = false;
-
-  micBtn.classList.remove("listening");
-
-  stopBtn.classList.add("hidden");
-
-  statusEl.textContent =
-    "Tap the mic and start talking";
 }
 
+function closeModal(id){
 
-/* =====================================================
-   USER MESSAGE
-   ===================================================== */
-
-async function handleUserMessage(text){
-
-  shouldContinue = false;
-
-  if(recognition){
-
-    try{
-      recognition.stop();
-    }catch(e){}
-  }
-
-  addMessage("user",text);
-
-  conversation.push({
-    role:"user",
-    content:text
-  });
-
-  statusEl.textContent =
-    "Doranea is thinking…";
-
-  await getDoraneaResponse();
+document
+.getElementById(id)
+.classList.remove("show");
 
 }
 
 
-/* =====================================================
-   AI RESPONSE
-   ===================================================== */
+/* TOAST */
 
-async function getDoraneaResponse(){
+let toastTimer;
 
-  try{
+function showToast(message){
 
-    const selectedLanguage =
-      language.options[
-        language.selectedIndex
-      ].text;
+const toast=
+document.getElementById("toast");
 
-    const response =
-      await fetch("/api/doranea",{
+toast.textContent=message;
 
-        method:"POST",
+toast.classList.add("show");
 
-        headers:{
-          "Content-Type":"application/json"
-        },
+clearTimeout(toastTimer);
 
-        body:JSON.stringify({
+toastTimer=setTimeout(
+function(){
 
-          name:userName,
+toast.classList.remove("show");
 
-          language:selectedLanguage,
-
-          messages:conversation
-
-        })
-
-      });
-
-
-    if(!response.ok){
-
-      throw new Error(
-        "Backend unavailable"
-      );
-
-    }
-
-
-    const data =
-      await response.json();
-
-
-    const reply =
-      data.reply ||
-      data.message ||
-      "Sorry Raam, ippudu response ivvalekapothunna.";
-
-
-    conversation.push({
-      role:"assistant",
-      content:reply
-    });
-
-
-    addMessage("assistant",reply);
-
-    speak(reply);
-
-  }catch(error){
-
-    console.error(error);
-
-    /*
-      Backend is not connected.
-      Keep the website usable with a natural
-      local fallback for testing.
-    */
-
-    const fallback =
-      localDoraneaReply(
-        conversation[conversation.length-1].content
-      );
-
-    conversation.push({
-      role:"assistant",
-      content:fallback
-    });
-
-    addMessage("assistant",fallback);
-
-    speak(fallback);
-  }
+},
+3000
+);
 
 }
 
 
-/* =====================================================
-   LOCAL FALLBACK
-   ===================================================== */
+/* LOGIN */
 
-function localDoraneaReply(text){
+function loginUser(){
 
-  const t =
-    text.toLowerCase();
+const name=
+document.getElementById("loginName").value.trim();
 
+const phone=
+document.getElementById("loginPhone").value.trim();
 
-  if(
-    t.includes("event") ||
-    t.includes("function") ||
-    t.includes("party")
-  ){
+const password=
+document.getElementById("loginPassword").value.trim();
 
-    return `Oh nice, Raam 😊 Event ki vellabothunnara! Mee mind lo aa event gurinchi emaina excitement unda, leka konchem nervous ga feel avutunnara?`;
+if(!name || !phone || !password){
 
-  }
+showToast(
+"Please enter all details."
+);
 
+return;
 
-  if(
-    t.includes("career") ||
-    t.includes("job") ||
-    t.includes("work")
-  ){
+}
 
-    return `Sure Raam 😊 Career gurinchi kuda matladukundam. Astrology perspective lo personalized ga discuss cheyyalante mee birth date, exact birth time, birth place details useful avutayi. Ippudu mee career lo meeku ekkuva concern unna point enti?`;
+setCurrentUser({
+name:name,
+phone:phone,
+password:password
+});
 
-  }
+document.getElementById("loginName").value="";
+document.getElementById("loginPhone").value="";
+document.getElementById("loginPassword").value="";
 
+closeModal("loginModal");
 
-  if(
-    t.includes("marriage") ||
-    t.includes("pelli")
-  ){
-
-    return `Sure Raam 😊 Marriage gurinchi kuda chuddam. Astrology lo personalized discussion kosam birth details useful avutayi. Mee question marriage timing gurinchaa, leka future partner gurinchaa?`;
-
-  }
-
-
-  if(
-    t.includes("money") ||
-    t.includes("money") ||
-    t.includes("finance") ||
-    t.includes("dabbu")
-  ){
-
-    return `Raam 😊 Money and financial growth gurinchi kuda discuss cheyyachu. Astrology ni guidance perspective lo chuddam, guaranteed prediction laga kaadu. Mee concern income gurinchaa, savings gurinchaa, leka business gurinchaa?`;
-
-  }
-
-
-  if(
-    t.includes("god") ||
-    t.includes("pray") ||
-    t.includes("devudu")
-  ){
-
-    return `Raam 😊 Spiritual side kuda matladukovachu. Traditional astrology or spiritual practices lo different beliefs untayi. Mee birth details unte traditional perspective lo discuss cheyyagalanu.`;
-
-  }
-
-
-  if(
-    t.includes("hello") ||
-    t.includes("hi") ||
-    t.includes("hlo")
-  ){
-
-    return `Hi Raam 😊 Nenu ikkade unna. Mee mind lo ippudu em undi? Freely cheppandi.`;
-
-  }
-
-
-  return `Hmm Raam 😊 Ardam ayyindi. Meeru cheppindi continue cheyyandi, nenu vinthunna. Astrology topic aina, daily life aina, anything okay.`;
+showToast(
+"Login successful"
+);
 
 }
 
 
-/* =====================================================
-   TEXT TO SPEECH
-   ===================================================== */
+/* PLUS */
 
-function speak(text){
+function openPlusMenu(){
 
-  if(!("speechSynthesis" in window)){
+if(!getCurrentUser()){
 
-    statusEl.textContent =
-      "Ready to talk with you";
+openModal("loginModal");
 
-    shouldContinue = true;
+return;
 
-    setTimeout(startListening,700);
+}
 
-    return;
-  }
+openModal("plusMenuModal");
 
+}
 
-  speechSynthesis.cancel();
+function openAddNewsForm(){
 
-  const utterance =
-    new SpeechSynthesisUtterance(text);
+closeModal("plusMenuModal");
 
-  utterance.lang =
-    language.value;
+openModal("addNewsModal");
 
-  utterance.rate = 0.96;
-  utterance.pitch = 1.03;
-  utterance.volume = 1;
+}
 
+function openMyNews(){
 
-  const voices =
-    speechSynthesis.getVoices();
+closeModal("plusMenuModal");
 
-  const matchingVoice =
-    voices.find(v =>
-      v.lang &&
-      v.lang.toLowerCase()
-      .startsWith(
-        language.value
-          .split("-")[0]
-          .toLowerCase()
-      )
-    );
+renderMyNews();
 
-  if(matchingVoice){
-
-    utterance.voice =
-      matchingVoice;
-
-  }
-
-
-  speaking = true;
-
-  statusEl.textContent =
-    "Doranea is speaking…";
-
-
-  utterance.onend = function(){
-
-    speaking = false;
-
-    statusEl.textContent =
-      "Listening…";
-
-    /*
-      AUTOMATICALLY START LISTENING
-      AFTER DORANEA FINISHES
-    */
-
-    shouldContinue = true;
-
-    setTimeout(()=>{
-
-      if(shouldContinue){
-
-        startListening();
-
-      }
-
-    },500);
-
-  };
-
-
-  utterance.onerror = function(){
-
-    speaking = false;
-
-    shouldContinue = true;
-
-    startListening();
-
-  };
-
-
-  speechSynthesis.speak(
-    utterance
-  );
+openModal("myNewsModal");
 
 }
 
 
-/* =====================================================
-   ADD MESSAGE
-   ===================================================== */
+/* PROFILE */
 
-function addMessage(type,text){
+function openProfile(){
 
-  const row =
-    document.createElement("div");
+const user=
+getCurrentUser();
 
-  row.className =
-    "message " + type;
+if(!user){
 
+openModal("loginModal");
 
-  const bubble =
-    document.createElement("div");
+return;
 
-  bubble.className =
-    "bubble";
+}
 
-  bubble.textContent =
-    text;
+document.getElementById(
+"profileName"
+).value=user.name || "";
 
+document.getElementById(
+"profilePhone"
+).value=user.phone || "";
 
-  row.appendChild(bubble);
+document.getElementById(
+"profilePassword"
+).value="";
 
-  chat.appendChild(row);
+openModal("profileModal");
 
-  setTimeout(()=>{
+}
 
-    chat.scrollTop =
-      chat.scrollHeight;
+function updateProfile(){
 
-  },50);
+const user=
+getCurrentUser();
+
+if(!user)return;
+
+const name=
+document.getElementById(
+"profileName"
+).value.trim();
+
+const phone=
+document.getElementById(
+"profilePhone"
+).value.trim();
+
+const password=
+document.getElementById(
+"profilePassword"
+).value.trim();
+
+if(!name || !phone){
+
+showToast(
+"Name and phone are required."
+);
+
+return;
+
+}
+
+user.name=name;
+user.phone=phone;
+
+if(password){
+user.password=password;
+}
+
+setCurrentUser(user);
+
+showToast(
+"Profile updated"
+);
+
+}
+
+function logoutUser(){
+
+setCurrentUser(null);
+
+closeModal("profileModal");
+
+showToast(
+"Logged out"
+);
 
 }
 
 
-/* =====================================================
-   BUTTON EVENTS
-   ===================================================== */
+/* ==========================================
+   MEDIA DATABASE
+========================================== */
 
-micBtn.addEventListener(
-  "click",
-  ()=>{
+let mediaDB=null;
 
-    if(listening){
+function openMediaDB(){
 
-      stopConversation();
+if(mediaDB){
+return mediaDB;
+}
 
-    }else{
+mediaDB=new Promise(
+function(resolve,reject){
 
-      startListening();
+try{
 
-    }
+const request=
+indexedDB.open(
+"OnWayNewsMediaFinal",
+1
+);
 
-  }
+request.onupgradeneeded=
+function(event){
+
+const db=
+event.target.result;
+
+if(
+!db.objectStoreNames.contains(
+"media"
+)
+){
+
+db.createObjectStore(
+"media",
+{
+keyPath:"id"
+}
+);
+
+}
+
+};
+
+request.onsuccess=
+function(){
+
+resolve(
+request.result
+);
+
+};
+
+request.onerror=
+function(){
+
+mediaDB=null;
+
+reject(
+request.error ||
+new Error(
+"Media database unavailable"
+)
+);
+
+};
+
+}catch(error){
+
+mediaDB=null;
+
+reject(error);
+
+}
+
+});
+
+return mediaDB;
+
+}
+
+
+/* SAVE MEDIA */
+
+async function saveMediaFile(file){
+
+if(!file){
+
+throw new Error(
+"Please select a picture or video."
+);
+
+}
+
+const db=
+await openMediaDB();
+
+const id=
+"m_" +
+Date.now() +
+"_" +
+Math.random()
+.toString(36)
+.substring(2);
+
+
+return new Promise(
+function(resolve,reject){
+
+const tx=
+db.transaction(
+"media",
+"readwrite"
+);
+
+const store=
+tx.objectStore("media");
+
+
+const request=
+store.put({
+
+id:id,
+
+blob:file,
+
+type:file.type || "",
+
+name:file.name || "media"
+
+});
+
+
+request.onsuccess=
+function(){
+
+};
+
+request.onerror=
+function(){
+
+reject(
+request.error ||
+new Error(
+"Could not save media."
+)
+);
+
+};
+
+
+tx.oncomplete=
+function(){
+
+resolve(id);
+
+};
+
+tx.onerror=
+function(){
+
+reject(
+tx.error ||
+new Error(
+"Could not save media."
+)
+);
+
+};
+
+tx.onabort=
+function(){
+
+reject(
+tx.error ||
+new Error(
+"Media save aborted."
+)
+);
+
+};
+
+});
+
+}
+
+
+/* GET MEDIA */
+
+async function getMediaFile(id){
+
+if(!id){
+return null;
+}
+
+const db=
+await openMediaDB();
+
+return new Promise(
+function(resolve,reject){
+
+const tx=
+db.transaction(
+"media",
+"readonly"
+);
+
+const request=
+tx.objectStore(
+"media"
+).get(id);
+
+request.onsuccess=
+function(){
+
+if(
+request.result
+){
+
+resolve(
+request.result.blob
+);
+
+}else{
+
+resolve(null);
+
+}
+
+};
+
+request.onerror=
+function(){
+
+reject(
+request.error
+);
+
+};
+
+});
+
+}
+
+
+/* DELETE MEDIA */
+
+async function deleteMediaFile(id){
+
+if(!id)return;
+
+try{
+
+const db=
+await openMediaDB();
+
+await new Promise(
+function(resolve,reject){
+
+const tx=
+db.transaction(
+"media",
+"readwrite"
+);
+
+tx.objectStore(
+"media"
+).delete(id);
+
+tx.oncomplete=
+resolve;
+
+tx.onerror=
+function(){
+
+reject(tx.error);
+
+};
+
+});
+
+}catch(error){
+
+console.error(
+"Delete media error:",
+error
+);
+
+}
+
+}
+
+
+/* ==========================================
+   PREVIEW
+========================================== */
+
+let previewURL=null;
+
+function previewSelectedMedia(){
+
+const input=
+document.getElementById(
+"mediaFile"
+);
+
+const preview=
+document.getElementById(
+"filePreview"
+);
+
+const content=
+document.getElementById(
+"previewContent"
+);
+
+const fileName=
+document.getElementById(
+"fileName"
 );
 
 
-stopBtn.addEventListener(
-  "click",
-  stopConversation
+content.innerHTML="";
+fileName.textContent="";
+
+
+if(previewURL){
+
+URL.revokeObjectURL(
+previewURL
 );
 
-
-/* =====================================================
-   LANGUAGE
-   ===================================================== */
-
-language.addEventListener(
-  "change",
-  ()=>{
-
-    if(recognition){
-
-      recognition.lang =
-        language.value;
-
-    }
-
-    speechSynthesis.cancel();
-
-    statusEl.textContent =
-      "Language changed. Tap mic to continue.";
-
-  }
-);
-
-
-/* =====================================================
-   LOAD VOICES
-   ===================================================== */
-
-if("speechSynthesis" in window){
-
-  speechSynthesis.onvoiceschanged =
-    function(){};
+previewURL=null;
 
 }
+
+
+if(
+!input.files ||
+!input.files.length
+){
+
+preview.classList.remove(
+"show"
+);
+
+return;
+
+}
+
+
+const file=
+input.files[0];
+
+
+previewURL=
+URL.createObjectURL(
+file
+);
+
+
+fileName.textContent=
+file.name;
+
+
+if(
+file.type.startsWith(
+"video/"
+)
+){
+
+const video=
+document.createElement(
+"video"
+);
+
+video.src=
+previewURL;
+
+video.controls=true;
+
+video.playsInline=true;
+
+content.appendChild(
+video
+);
+
+}else{
+
+const img=
+document.createElement(
+"img"
+);
+
+img.src=
+previewURL;
+
+img.alt=
+"Selected picture";
+
+content.appendChild(
+img
+);
+
+}
+
+
+preview.classList.add(
+"show"
+);
+
+}
+
+
+/* ==========================================
+   PUBLISH
+========================================== */
+
+async function publishNews(){
+
+const user=
+getCurrentUser();
+
+if(!user){
+
+closeModal(
+"addNewsModal"
+);
+
+openModal(
+"loginModal"
+);
+
+return;
+
+}
+
+
+const headline=
+document.getElementById(
+"newsHeadline"
+).value.trim();
+
+
+const location=
+document.getElementById(
+"newsLocation"
+).value;
+
+
+const matter=
+document.getElementById(
+"newsMatter"
+).value.trim();
+
+
+const input=
+document.getElementById(
+"mediaFile"
+);
+
+
+if(!headline){
+
+showToast(
+"Enter news headline."
+);
+
+return;
+
+}
+
+
+if(!location){
+
+showToast(
+"Select location."
+);
+
+return;
+
+}
+
+
+if(
+!input ||
+!input.files ||
+!input.files.length
+){
+
+showToast(
+"Please select picture or video."
+);
+
+return;
+
+}
+
+
+if(!matter){
+
+showToast(
+"Enter news matter."
+);
+
+return;
+
+}
+
+
+const file=
+input.files[0];
+
+
+const button=
+document.getElementById(
+"publishBtn"
+);
+
+
+button.disabled=true;
+
+button.textContent=
+"Publishing...";
+
+
+try{
+
+/*
+Save actual selected file.
+*/
+
+const mediaId=
+await saveMediaFile(
+file
+);
+
+
+/*
+Create news.
+*/
+
+const item={
+
+id:
+"news_" +
+Date.now() +
+"_" +
+Math.random()
+.toString(36)
+.substring(2),
+
+location:location,
+
+headline:headline,
+
+matter:matter,
+
+mediaId:mediaId,
+
+mediaType:
+file.type,
+
+authorPhone:
+user.phone,
+
+authorName:
+user.name,
+
+createdAt:
+Date.now()
+
+};
+
+
+/*
+Save metadata.
+*/
+
+const news=
+getSavedNews();
+
+news.unshift(item);
+
+saveNews(news);
+
+
+/*
+Clear form.
+*/
+
+document.getElementById(
+"newsHeadline"
+).value="";
+
+document.getElementById(
+"newsLocation"
+).value="";
+
+document.getElementById(
+"newsMatter"
+).value="";
+
+input.value="";
+
+
+if(previewURL){
+
+URL.revokeObjectURL(
+previewURL
+);
+
+previewURL=null;
+
+}
+
+
+document.getElementById(
+"previewContent"
+).innerHTML="";
+
+document.getElementById(
+"fileName"
+).textContent="";
+
+document.getElementById(
+"filePreview"
+).classList.remove(
+"show"
+);
+
+
+/*
+Close and refresh.
+*/
+
+closeModal(
+"addNewsModal"
+);
+
+await renderNews();
+
+
+showToast(
+"News published successfully!"
+);
+
+
+}catch(error){
+
+console.error(
+"ONWAY PUBLISH ERROR:",
+error
+);
+
+let msg=
+"Publish failed.";
+
+if(
+error &&
+error.name ===
+"QuotaExceededError"
+){
+
+msg=
+"Storage full. Please choose a smaller picture.";
+
+}else if(
+error &&
+error.message
+){
+
+msg=
+error.message;
+
+}
+
+showToast(
+msg
+);
+
+
+}finally{
+
+button.disabled=false;
+
+button.textContent=
+"Publish News";
+
+}
+
+}
+
+
+/* ==========================================
+   RENDER
+========================================== */
+
+async function renderNews(){
+
+const feed=
+document.getElementById(
+"newsFeed"
+);
+
+feed.innerHTML="";
+
+
+const uploaded=
+getSavedNews();
+
+
+const all=[
+...uploaded,
+...defaultNews
+];
+
+
+for(
+const item of all
+){
+
+const card=
+document.createElement(
+"article"
+);
+
+card.className=
+"news-card";
+
+
+const media=
+document.createElement(
+"div"
+);
+
+media.className=
+"news-media";
+
+
+if(item.mediaId){
+
+try{
+
+const blob=
+await getMediaFile(
+item.mediaId
+);
+
+
+if(blob){
+
+const url=
+URL.createObjectURL(
+blob
+);
+
+
+if(
+(
+blob.type &&
+blob.type.startsWith(
+"video/"
+)
+) ||
+(
+item.mediaType &&
+item.mediaType.startsWith(
+"video/"
+)
+)
+){
+
+const video=
+document.createElement(
+"video"
+);
+
+video.src=url;
+
+video.controls=true;
+
+video.playsInline=true;
+
+video.preload=
+"metadata";
+
+media.appendChild(
+video
+);
+
+}else{
+
+const img=
+document.createElement(
+"img"
+);
+
+img.src=url;
+
+img.alt=
+item.headline;
+
+img.onerror=
+function(){
+
+media.innerHTML=
+'<div class="media-placeholder">📷</div>';
+
+};
+
+media.appendChild(
+img
+);
+
+}
+
+}else{
+
+media.innerHTML=
+'<div class="media-placeholder">📷</div>';
+
+}
+
+}catch(error){
+
+console.error(
+"Media render error:",
+error
+);
+
+media.innerHTML=
+'<div class="media-placeholder">📷</div>';
+
+}
+
+}else if(item.image){
+
+const img=
+document.createElement(
+"img"
+);
+
+img.src=
+item.image;
+
+img.alt=
+item.headline;
+
+img.onerror=
+function(){
+
+media.innerHTML=
+'<div class="media-placeholder">📷</div>';
+
+};
+
+media.appendChild(
+img
+);
+
+}else{
+
+media.innerHTML=
+'<div class="media-placeholder">📷</div>';
+
+}
+
+
+/* CONTENT */
+
+const content=
+document.createElement(
+"div"
+);
+
+content.className=
+"news-content";
+
+
+const liked=
+localStorage.getItem(
+"liked_"+item.id
+)==="true";
+
+
+content.innerHTML=`
+
+<div class="location">
+📍 ${escapeHTML(item.location)}
+</div>
+
+<div class="headline">
+${escapeHTML(item.headline)}
+</div>
+
+<div class="news-matter">
+${escapeHTML(item.matter)}
+</div>
+
+<div class="news-actions">
+
+<button
+class="action-btn like-btn ${liked ? "liked":""}"
+onclick="likeNews('${item.id}')">
+
+${liked ? "❤️":"♡"} Like
+
+</button>
+
+<button
+class="action-btn"
+onclick="shareNews('${item.id}')">
+
+↗ Share
+
+</button>
+
+</div>
+
+`;
+
+
+card.appendChild(
+media
+);
+
+card.appendChild(
+content
+);
+
+feed.appendChild(
+card
+);
+
+}
+
+}
+
+
+/* LIKE */
+
+function likeNews(id){
+
+if(!getCurrentUser()){
+
+openModal(
+"loginModal"
+);
+
+return;
+
+}
+
+const key=
+"liked_"+id;
+
+const current=
+localStorage.getItem(
+key
+)==="true";
+
+localStorage.setItem(
+key,
+current ? "false":"true"
+);
+
+renderNews();
+
+}
+
+
+/* SHARE */
+
+async function shareNews(id){
+
+const uploaded=
+getSavedNews();
+
+
+const item=
+uploaded.find(
+function(n){
+return n.id===id;
+}
+) ||
+defaultNews.find(
+function(n){
+return n.id===id;
+}
+);
+
+
+if(!item)return;
+
+
+const text=
+item.headline+
+"\n\n"+
+item.matter+
+"\n\nOnWay News";
+
+
+try{
+
+if(navigator.share){
+
+await navigator.share({
+
+title:item.headline,
+
+text:text
+
+});
+
+}else if(
+navigator.clipboard
+){
+
+await navigator.clipboard.writeText(
+text
+);
+
+showToast(
+"News copied"
+);
+
+}else{
+
+showToast(
+"Sharing not supported"
+);
+
+}
+
+}catch(error){}
+
+}
+
+
+/* MY NEWS */
+
+function renderMyNews(){
+
+const user=
+getCurrentUser();
+
+const list=
+document.getElementById(
+"myNewsList"
+);
+
+
+if(!user){
+
+list.innerHTML=
+'<div style="text-align:center;padding:30px;color:#64748b;">Please login first.</div>';
+
+return;
+
+}
+
+
+const news=
+getSavedNews().filter(
+function(item){
+
+return item.authorPhone===
+user.phone;
+
+}
+);
+
+
+if(!news.length){
+
+list.innerHTML=`
+
+<div style="
+text-align:center;
+padding:30px;
+color:#64748b;
+">
+
+You have not uploaded any news yet.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+list.innerHTML="";
+
+
+news.forEach(
+function(item){
+
+const div=
+document.createElement(
+"div"
+);
+
+div.className=
+"my-news-item";
+
+
+div.innerHTML=`
+
+<div class="my-news-title">
+${escapeHTML(item.headline)}
+</div>
+
+<div class="my-news-location">
+📍 ${escapeHTML(item.location)}
+</div>
+
+<button
+class="delete-news-btn"
+onclick="deleteMyNews('${item.id}')">
+
+🗑 Delete News
+
+</button>
+
+`;
+
+
+list.appendChild(
+div
+);
+
+}
+);
+
+}
+
+
+/* DELETE NEWS */
+
+async function deleteMyNews(id){
+
+const user=
+getCurrentUser();
+
+if(!user)return;
+
+
+const news=
+getSavedNews();
+
+
+const item=
+news.find(
+function(n){
+return n.id===id;
+}
+);
+
+
+if(!item)return;
+
+
+if(
+item.authorPhone !==
+user.phone
+){
+
+showToast(
+"You can delete only your own news."
+);
+
+return;
+
+}
+
+
+if(
+!confirm(
+"Delete this news permanently?"
+)
+){
+
+return;
+
+}
+
+
+if(item.mediaId){
+
+await deleteMediaFile(
+item.mediaId
+);
+
+}
+
+
+saveNews(
+news.filter(
+function(n){
+return n.id!==id;
+}
+)
+);
+
+
+renderMyNews();
+
+await renderNews();
+
+
+showToast(
+"News deleted"
+);
+
+}
+
+
+/* DELETE ACCOUNT */
+
+async function deleteAccount(){
+
+const user=
+getCurrentUser();
+
+if(!user)return;
+
+
+if(
+!confirm(
+"Delete your account and uploaded news?"
+)
+){
+
+return;
+
+}
+
+
+const news=
+getSavedNews();
+
+
+const mine=
+news.filter(
+function(n){
+
+return n.authorPhone===
+user.phone;
+
+}
+);
+
+
+for(
+const item of mine
+){
+
+if(item.mediaId){
+
+await deleteMediaFile(
+item.mediaId
+);
+
+}
+
+}
+
+
+saveNews(
+news.filter(
+function(n){
+
+return n.authorPhone !==
+user.phone;
+
+}
+)
+);
+
+
+setCurrentUser(null);
+
+closeModal(
+"profileModal"
+);
+
+await renderNews();
+
+
+showToast(
+"Account deleted"
+);
+
+}
+
+
+/* ESCAPE */
+
+function escapeHTML(value){
+
+return String(
+value ?? ""
+)
+.replace(
+/&/g,
+"&amp;"
+)
+.replace(
+/</g,
+"&lt;"
+)
+.replace(
+/>/g,
+"&gt;"
+)
+.replace(
+/"/g,
+"&quot;"
+)
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
+
+
+/* OUTSIDE CLICK */
+
+document
+.querySelectorAll(
+".modal-overlay"
+)
+.forEach(
+function(overlay){
+
+overlay.addEventListener(
+"click",
+function(event){
+
+if(
+event.target===
+overlay
+){
+
+overlay.classList.remove(
+"show"
+);
+
+}
+
+}
+);
+
+}
+);
+
+
+/* START */
+
+renderNews();
 
 </script>
 
